@@ -3,7 +3,7 @@
     "path": "~/git/myolab.org/content/posts/2025-06-27-the-myolab-is-born/index.md",
     "project_path": "content/posts/2025-06-27-the-myolab-is-born/index.md",
     "type": "markdown",
-    "hash": "3122497048",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1751053177226.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "8,26",
+        "cursorPosition": "0,0",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1752257627,
+    "lastKnownWriteTime": 1752258833,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1752257627627,
+    "last_content_update": 1752258833584,
     "read_only": false,
     "read_only_alternatives": []
 }
