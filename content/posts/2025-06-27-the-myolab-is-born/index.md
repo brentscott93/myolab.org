@@ -6,4 +6,4 @@ readingTime: no
 showFullContent: no
 ---
 
-On August 10, 2025, Brent officially started as faculty at the College of William & Mary. This also marks the first official day of his own research lab - The 
+On August 10, 2025, Brent started as faculty at the College of William & Mary. This marks the first official day of the Myolab.
