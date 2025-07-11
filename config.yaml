@@ -1,4 +1,4 @@
-baseurl: https://myolab.org/
+baseurl: "/"
 languageCode: en-us
 theme: hugo-theme-terminal
 markup:
