@@ -1,0 +1,26 @@
+# Summarize
+
+The app will automatically detect which type of analyzer was used to analyze each project and provide a project summary. Note, only one analyzer should be used for a specific project. If you have single molecule and mini ensemble data you are working on for a paper, these need to be divided into separate projects. The summarize feature will then run a specific summarize analysis dependent on the type of analysis performed on the data. 
+
+## Single- and mini-ensemble standard mode
+
+The summarize feature is designed to be more of a quick summary feature that provides a quick look at the summary statistics of your project with minimal user-implemented choices. I found it to be convenient when you just want a quick check on how a project is progressing wanting to see averages, standard errors, sample size, etc to update myself and the lab. You can change colors or re-reorder the factors for display purposes, but other than that it will create the same default statistical figures powered by the [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/) package. This provides a quick statistical tasks to check on significance. Currently, conditions are grouped indivudally and performed in a "one-way" fashion. Click the link to visit the {ggstatsplot} website for insight into the meanings of all the statistical symbols. These quick summaries can be exported to standalone .html dashboards to share. In the future I would like to add support to export to .ppt files as well. 
+
+Summarizing data will read, filter, combine, and save all "measured-events.csv" into your "summary" folder within your project with the date, project name, and "all-measured-events.csv" as the identifying file name. The summarized data will also be saved in a similar fashion but as "summary-data.csv".
+
+**Note:** The **split conditions** feature can be used to separate your **conditions** name into multiple unique variable ID's which can be useful for later use when creating plots. Split conditions only works if you follow the condition naming convention described in these docs. No spaces - EVER! Underscores "_" separate distinct varaibles and dashes "-" can be used as spaces within a variable. When selecting split conditions, *n* number of textboxes will appear for the number of variables present in your conditions name, which is solved by identifying the number of underscores present plus 1. You can then enter the variables names which will become column names in the data. 
+
+## Isometric Force Clamp
+
+The isometric force clamp summary analysis will plot the Force vs lifetime of the binding events and use maximum likelihood estimation to fit the Bell-bond equation as detailed in [MEMLET](https://pmc.ncbi.nlm.nih.gov/articles/PMC4968482/pdf/main.pdf). To perform this summary analysis, you need to select a project that has been analyzed with the Isometric Force Clamp analyzer and then the buttons will automatically populate in the "Control" box. You can select the "factor order", the minimum force to include in the plots/fits, the minimum time duration of events to include, and the colors of the resulting graphs.
+
+Click summarize and the plots will appear eventually. This could take several seconds because it also calculates 95% confidence intervals around the parameter estimates using boostrapping techniques. These data are saved in the lasertrapr/summary folder. The parameter estimations and the bootstrap results can be uploaded in the MATLAB based computational tool to test for significant differences. Follow the instructions for ["Script_hypothesis_testing.m"](https://github.com/GreenbergLab/Thin_Filament_Fitting). In the future, translating this script into R to bake into the app would be great to have.
+
+## tl;dr
+
+Just show me a video...
+
+<video width="800" height="400" controls>
+  <source src="images/summarize.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>

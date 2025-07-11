@@ -1,0 +1,11 @@
+# Figures
+Currently experimental. Unsure whether this will be fully implemented ever. Scientists are generally quite picky about the appearances of their figures, so it is usually easiest to read in data in R/any other plotting software to have the most control over the appearance. This would be more of a quick plotting feature that provides minimal customization.
+
+## tl;dr
+
+Just show me a video...
+
+<video width="800" height="400" controls>
+  <source src="images/figures.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>

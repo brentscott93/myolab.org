@@ -1,0 +1,66 @@
+# Upload Data {#upload}
+ 
+## The ~/lasertrapr/ folder
+ 
+The **{lasertrapr}** app offers more than just the analysis of single laser trap data traces, but the application also serves as an *opinionated data management* tool. The app forces users to adopt a specific directory tree structure. All data can be organized into specific **project**, **conditions**, **date**, and **observation** folders. Additionally, this structure can be leveraged in the post-analysis stage to easily handle statistical analyses and auto-generation of plots for quick summary features provided by the app. Upon initial launch of the app, a *lasertrapr* folder will be created under `~/lasertrapr`. The exact location of the folder will vary depending on OS, but you can get the exact location by running `path.expand("~/lasertrapr")` in the R-console. All of your data and analyses will be created and saved within this folder. 
+
+The app will take any uploaded data and copy it into an **observation** folder. In the laser trap, we will assume an "observation"is all the data collected at one mogul at a given time. This data, or observation, would have been collected on a specific day (date) under specific solution conditions (ionic strength, pH, mutations, etc.) and would belong to one bigger project. This logic provides the basis for the data management provided by the app. **The project, conditions, and date folders must exist in order for data to be uploaded.** The app will automatically create the observation folders when data is uploaded. 
+
+
+## Create Folders
+
+Located in the top right of the app is the **Folder Manager**. Click to open the menu (there is a known bug that when opening menu for first time some of the menu is cut off, you can click outside menu to close, and just re-opening will fix this menu display). Click the dropdown and either select your specific project folder or select "Create New..." to create a new folder. Avoid using spaces in the folder names. The prefix "project_" will be appended to the beginning. Continue to create folders in the same way for the conditions and date.
+
+In lieu of using spaces, users are encouraged to use "-" and "under_score" in your conditions naming conventions. I prefer to use a combination of both. I use a "-" as a space *within* a given variable name and "under_score" as a space separator *between* distinct variables in the conditions. For instance, if I collected data with a wild-type myosin (WT) at pH 7.0 and 30mM P<sub>i</sub> my conditions would be "WT_pH-7.0_30mM-Pi". The app will add a "conditions" column to all the uploaded trapping data to ID each observation from one another (along with columns for the project, date, and observation info). The benefit of having a standard naming convention and knowing what the roles of the special space seperators are will allow for more flexibility and robust analysis later on. For example, eventually the conditions column can be separated into *many* variable columns easily in the post-analysis by knowing that variables are separated by "under_score". It doesn't matter what you use, just be consistent. 
+
+## Load Data
+### Simple Upload
+
+A simple upload means the user has a complete file of trap data. One file = one complete record. 
+
+Any regular delimited file type can be loaded into the app (thanks to `fread()` from {data.table}). Currently, the app only supports single trap detector data which means only one signal columns can be used for analysis. **The first column in the data file will automatically be chosen as the trap data**. The app will make a copy of the data and re-format it for use within itself. Uploading a dataset to the app will create an "obs-##" folder inside the currently selected data folder. The data will be saved within that "obs-##" as "trap-data.csv". This last detail is purely informative. One of the benefit of using the app is not worrying about file management. You technically will never need to look inside the files created by the app, but it is still nice to know how it works and where to find things. 
+
+Multiple files can be uploaded at once too. Each file will be treated as a new observation. If three files are uploaded, then the folders "obs-01","obs-02", and "obs-03" will be created within the selected date folder and "trap-data.csv" files will be initialized from the uploaded data within the respective observation folders. 
+
+If you are uploading simulated data or data that has already been processed you can check the "Ready for Analysis?" box which will let you enter a trap stiffness (pN/nm) value and assumes you don't need to convert data from mV to nm (the app will use a value of 1 for the mV to nm conversion during subsequent analysis). This allows users to skip the "Clean & Process" section of the app since the data will be ready for analysis once the data is initialized. 
+
+### Advanced Upload
+
+If you are uploading multi-channel data or have a custom file header with all the system's calibration information, you can also upload these files types. This would be the case for data coming from the Greenberg's trap, where the trap data in X and Y from the two detectors is preceeded by a 68 line header with various calibrations and information about the current state of the system.
+
+To upload these types of dataset, select "Number of Channels" for how many detectors your system has. 
+
+If there is a header in your data, check "Cal in header?" This will display a series of value boxes to fill out. The default values in these boxes are values that work with the trap data from the Greenberg lab's trap. If you are using Greenberg lab data, you can just hit upload since everything is pre-filled.
+
+Fill in the boxes with the LINE NUMBERS that correspond to your specific header file. Looking at the example, the "Hz" box has a value of 15. This means the sampling frequency information is on line 15 of the header. 
+
+Header Size: The number of lines in the header. The app will save the header in a separate file called "header.csv". 
+
+Hz: sampling frequency. Enter the line number that this is found in the header.
+
+nm/V and pN/nm: calibration numbers. Enter the line number that this is found in the header.
+
+Feedback motor bead: value should be 1 or 2 denoting which trap was the motor bead when performing the isometric force clamp experiment. 
+
+Trap 1/2 Col: The column numbers where the actual data are after the header. Default is 1, 3 which means that the 1st and 3rd column have the data in the X dimensions recorded by the QPD. 
+
+### Lumicks
+
+You can upload Lumicks H5 data files into the app as well. Just select the Lumicks tab and browse for the H5 files. Currently, this will only extract the high frequency Trap1X and Trap2X data. This is sampled at ~78 kHz, so you will most likely want to downsample this. Input the factor number you want to downsample by (e.g. 2 would mean to downsample by a factor of 2, cutting the number of datapoints in half).
+
+You can also include the position of the stage by checking the box. 
+
+### Split Observations
+
+This is a special use case for the Debold Lab. The trapping computer saves a separate .txt file for every 5-seconds of data collected. All .txt files from a given conditions/date combination can be uploaded at once and the app will read the time-stamps and concatenate corresponding observation files together based upon the user selected time threshold.
+
+
+## tl;dr
+
+Just show me a video...
+
+<video width="800" height="400" controls>
+  <source src="images/upload.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
