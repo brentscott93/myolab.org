@@ -2,9 +2,15 @@
 title: The Myolab is Born
 author: Brent
 date: '2025-08-10'
-slug: welcome
+slug: []
 categories: []
-tags: []
+authorTwitter: ''
+cover: ''
+description: ''
+hideComments: no
+keywords:
+  - ''
+  - ''
 readingTime: no
 showFullContent: yes
 ---
