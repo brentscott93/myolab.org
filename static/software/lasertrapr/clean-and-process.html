@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Clean and Process | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Clean and Process | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Brent Scott" />
 
 
-<meta name="date" content="2025-07-11" />
+<meta name="date" content="2025-12-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -156,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.2" data-path="upload.html"><a href="upload.html#advanced-upload"><i class="fa fa-check"></i><b>2.3.2</b> Advanced Upload</a></li>
 <li class="chapter" data-level="2.3.3" data-path="upload.html"><a href="upload.html#lumicks"><i class="fa fa-check"></i><b>2.3.3</b> Lumicks</a></li>
 <li class="chapter" data-level="2.3.4" data-path="upload.html"><a href="upload.html#split-observations"><i class="fa fa-check"></i><b>2.3.4</b> Split Observations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="upload.html"><a href="upload.html#need-more-options"><i class="fa fa-check"></i><b>2.3.5</b> Need more options?</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="upload.html"><a href="upload.html#tldr"><i class="fa fa-check"></i><b>2.4</b> tl;dr</a></li>
 </ul></li>
@@ -173,28 +175,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="clean-and-process.html"><a href="clean-and-process.html#detrend-data"><i class="fa fa-check"></i><b>3.2.3</b> Detrend data</a></li>
 <li class="chapter" data-level="3.2.4" data-path="clean-and-process.html"><a href="clean-and-process.html#to-include-or-not-to-include"><i class="fa fa-check"></i><b>3.2.4</b> To Include, or not to Include…</a></li>
 <li class="chapter" data-level="3.2.5" data-path="clean-and-process.html"><a href="clean-and-process.html#save"><i class="fa fa-check"></i><b>3.2.5</b> Save!</a></li>
+<li class="chapter" data-level="3.2.6" data-path="clean-and-process.html"><a href="clean-and-process.html#historical-explanation-of-app-logic"><i class="fa fa-check"></i><b>3.2.6</b> Historical Explanation of App Logic</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="analyzers.html"><a href="analyzers.html"><i class="fa fa-check"></i><b>4</b> Analyzers</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="analyzers.html"><a href="analyzers.html#hm-modelchangepoint"><i class="fa fa-check"></i><b>4.1</b> HM-Model/Changepoint</a>
+<li class="chapter" data-level="4.1" data-path="analyzers.html"><a href="analyzers.html#hm-modelchangepoint-1-qpd"><i class="fa fa-check"></i><b>4.1</b> HM-Model/Changepoint (1 QPD)</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model"><i class="fa fa-check"></i><b>4.1.1</b> Options: HM-Model</a></li>
 <li class="chapter" data-level="4.1.2" data-path="analyzers.html"><a href="analyzers.html#options-changepoint"><i class="fa fa-check"></i><b>4.1.2</b> Options: Changepoint</a></li>
 <li class="chapter" data-level="4.1.3" data-path="analyzers.html"><a href="analyzers.html#options-displacements"><i class="fa fa-check"></i><b>4.1.3</b> Options: Displacements</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="analyzers.html"><a href="analyzers.html#mini-ensemble"><i class="fa fa-check"></i><b>4.2</b> Mini-Ensemble</a></li>
-<li class="chapter" data-level="4.3" data-path="analyzers.html"><a href="analyzers.html#isometric-force-clamp"><i class="fa fa-check"></i><b>4.3</b> Isometric Force Clamp</a>
+<li class="chapter" data-level="4.2" data-path="analyzers.html"><a href="analyzers.html#covariance-2-qpd"><i class="fa fa-check"></i><b>4.2</b> Covariance (2 QPD)</a></li>
+<li class="chapter" data-level="4.3" data-path="analyzers.html"><a href="analyzers.html#force-balance"><i class="fa fa-check"></i><b>4.3</b> Force Balance</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model-1"><i class="fa fa-check"></i><b>4.3.1</b> Options: HM-Model</a></li>
+<li class="chapter" data-level="4.3.1" data-path="analyzers.html"><a href="analyzers.html#options-force-balance"><i class="fa fa-check"></i><b>4.3.1</b> Options: Force Balance</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="analyzers.html"><a href="analyzers.html#tldr-1"><i class="fa fa-check"></i><b>4.4</b> tl;dr</a></li>
+<li class="chapter" data-level="4.4" data-path="analyzers.html"><a href="analyzers.html#mini-ensemble"><i class="fa fa-check"></i><b>4.4</b> Mini-Ensemble</a></li>
+<li class="chapter" data-level="4.5" data-path="analyzers.html"><a href="analyzers.html#isometric-force-clamp"><i class="fa fa-check"></i><b>4.5</b> Isometric Force Clamp</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model-1"><i class="fa fa-check"></i><b>4.5.1</b> Options: HM-Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="analyzers.html"><a href="analyzers.html#review"><i class="fa fa-check"></i><b>4.6</b> Review</a></li>
+<li class="chapter" data-level="4.7" data-path="analyzers.html"><a href="analyzers.html#tldr-1"><i class="fa fa-check"></i><b>4.7</b> tl;dr</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>5</b> Summarize</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="summarize.html"><a href="summarize.html#single--and-mini-ensemble-standard-mode"><i class="fa fa-check"></i><b>5.1</b> Single- and mini-ensemble standard mode</a></li>
 <li class="chapter" data-level="5.2" data-path="summarize.html"><a href="summarize.html#isometric-force-clamp-1"><i class="fa fa-check"></i><b>5.2</b> Isometric Force Clamp</a></li>
-<li class="chapter" data-level="5.3" data-path="summarize.html"><a href="summarize.html#tldr-2"><i class="fa fa-check"></i><b>5.3</b> tl;dr</a></li>
+<li class="chapter" data-level="5.3" data-path="summarize.html"><a href="summarize.html#r-functions"><i class="fa fa-check"></i><b>5.3</b> R functions</a></li>
+<li class="chapter" data-level="5.4" data-path="summarize.html"><a href="summarize.html#tldr-2"><i class="fa fa-check"></i><b>5.4</b> tl;dr</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="ensemble-average.html"><a href="ensemble-average.html"><i class="fa fa-check"></i><b>6</b> Ensemble Average</a>
 <ul>
@@ -239,8 +249,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>One of the main benefits of <code>{lasertrapr}</code> is the ability to easily clean your data. Even if you do not like/need the analyzers or other features in the app, you can easily just use it to clean, process, and export your data to another application.</p>
 <div id="cut-data" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Cut data<a href="clean-and-process.html#cut-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The most common use case for needing to cut data from a trap data trace is when during collection an actin-filament snaps or the myosin sticks down. In these cases, there is still good/usable data present in the trace, but the presence of the large signal disruptions caused by the snapping filament or stick-down could throw off the analyzers. The easiest fix is to cut these portion of the data out. I generally do <strong>not</strong> recommend deleting data except for these cases in which case I refer to this as “trimming” the data.</p>
-<p>Trimming (deleting) an observation to make it analyzer ready is easy with <code>{lasertrapr}</code>. Use the <strong>Folder Manager</strong> to select an observation, load the observation, select the data to delete, and hit the Cut button. <em>NOTE: This permanently deletes the range of data selected from the trap trace and is irreversible (unless you re-upload your data).</em></p>
+<p>The most common use case for needing to cut data from a trap data trace is when during collection an actin-filament snaps or the myosin sticks down. In these cases, there is still good/usable data present in the trace, but the presence of the large signal disruptions caused by the snapping filament or stick-down will throw off the analyzers. The easiest fix is to cut these portion of the data out. I generally do <strong>not</strong> recommend deleting data except for these cases in which case I refer to this as “trimming” the data (cutting data from the end).</p>
+<p>Trimming (deleting) an observation to make it analyzer ready is easy with <code>{lasertrapr}</code>. Use the <strong>Folder Manager</strong> to select an observation, load the observation, select the data to delete, and hit the Cut button. <em>NOTE: This permanently deletes the range of data selected from the trap trace and is irreversible (unless you re-upload your data).</em> <strong>NOTE: after moving data the graph should refresh but there is a quirk where sometimes the graph refreshes and shows nothing. Just hit the “Graph” button again to show the updated trace.</strong></p>
 <video width="800" height="400" controls>
 <source src="images/cut.mp4" type="video/mp4">
 <p>Your browser does not support the video tag.
@@ -248,8 +258,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="move-data" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Move data<a href="clean-and-process.html#move-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In some cases, you do not want to delete data, but to split one record into 2 different observations. This is called “moving” data in <code>{lasertrapr}</code>. Sometimes, during collection stage drift occurs so the trace starts with a stable/horizontal time-series, but then over time the data starts to trend with time upwards in the y-dimensions turning the signal into a diagonal line. One way to deal with this is to split the single <strong>obs</strong> into two seperate ones so the two-halves can be processed separately with the diagonal potion getting detrended later.</p>
-<p>Moving data is the same procedure as cutting data, except for the final button pushed! Load an <strong>obs</strong>, select the data to move, and click move. A new observation folder will be made with the selected data and the selected data will be deleted out of the current <strong>obs</strong>. <em>NOTE: This cannot be undone without manual intervention (you would have to load the trap-data.csv files into R and <code>rbind</code> them back together or re-upload the data and start again).</em>
+<p>In some cases, you do not want to delete data, but to split one record into 2 different “observations” or data traces. This is called “moving” data in <code>{lasertrapr}</code>. Sometimes, during collection stage drift occurs so the trace starts with a stable/horizontal time-series, but then over time the data starts to trend with time upwards in the y-dimensions turning the signal into a diagonal line. One way to deal with this is to split the single <strong>obs</strong> into two separate ones so the two-halves can be processed separately with the diagonal potion getting detrended later.</p>
+<p>Moving data is the same procedure as cutting data, except for the final button pushed! Load an <strong>obs</strong>, select the data to move, and click move. A new observation folder will be made with the selected data and the selected data will be deleted out of the current <strong>obs</strong>. <em>NOTE: This cannot be undone without manual intervention (you would have to load the trap-data.csv files into R and <code>rbind</code> them back together or re-upload the data and start again).</em> <strong>NOTE: after moving data the graph should refresh but there is a quirk where sometimes the graph refreshes and shows nothing. Just hit the “Graph” button again to show the updated trace.</strong>
 <video width="800" height="400" controls>
 <source src="images/move.mp4" type="video/mp4">
 Your browser does not support the video tag.
@@ -258,10 +268,10 @@ Your browser does not support the video tag.
 </div>
 <div id="process" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Process<a href="clean-and-process.html#process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Another benefit that I have enjoyed while analyzing my own data with <code>{lasertrapr}</code> is the ability to easily visualize how processing will transform my data before deciding to save/analyze it. Currently, you can convert data from mV-to-nm with a pre-determined user conversion value, center the baseline mean to zero using either the “baseline range” or “remove mv” techniques, or you can detrend your data with a peice-wise linear detrend-er.</p>
+<p>Another benefit that I have enjoyed while analyzing my own data with <code>{lasertrapr}</code> is the ability to easily visualize how processing will transform my data before deciding to save/analyze it. Currently, you can convert data from mV-to-nm with a pre-determined user conversion value, center the baseline mean to zero using either the “baseline range” or “remove mv” techniques, or you can detrend your data with a piecewise linear detrend-er. <em>Note, currently Remove MV is only supported for single channel datasets. Also, you do not have to select a processor. Data can be saved with “none” processor selected</em>.</p>
 <div id="convert-to-nm" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Convert to nm<a href="clean-and-process.html#convert-to-nm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Short and sweet. Enter your pre-determined mV-to-nm conversion in the <strong>Step Cal</strong> box and hit <strong>Graph</strong> to preview.</p>
+<p>Short and sweet. Enter your pre-determined mV-to-nm conversion in the <strong>Step Cal</strong> box and hit <strong>Graph</strong> to preview. <strong>NOTE: If using Lumicks data, their raw data is in pN not volts.</strong></p>
 <video width="800" height="400" controls>
 <source src="images/nm.mp4" type="video/mp4">
 <p>Your browser does not support the video tag.
@@ -269,10 +279,11 @@ Your browser does not support the video tag.
 </div>
 <div id="remove-baseline" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Remove baseline<a href="clean-and-process.html#remove-baseline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>When collecting laser trap data the detector is measuring the relative intensity of light across its four-quadrants. The data is saved in units of volts (V or mV) and is usually not centered around 0 V (unless your detector is on a translatable mounting bracket that allows the user to 0 out the detector manually). So, when the data is converted to nanometers the y-axis range becomes some arbitrarily large or nonsense negative value. Technically there is nothing wrong with this since we are interested in making <em>relative</em> measurements of displacements from baseline, but it makes more sense and is easier to read when the y-axis is centered around 0nm. This can be accomplished by calculating the average position of the baseline signal and subtracting that value from every point in the y-dimension. Baseline removal is currently implemented in 3 ways: baseline range, remove MV, and de-trending the data. Currently, these all work for 1-channel data sets. Only the baseline range and de-trending are implements for 2-channel data sets.</p>
+<p>When collecting laser trap data the detector is measuring the relative intensity of light across its four-quadrants. The data is saved in units of volts (V or mV) and is usually not centered around 0 V (unless your detector is on a translatable mounting bracket that allows the user to 0 out the detector manually). So, when the data is converted to nanometers the y-axis range becomes some arbitrarily large or nonsense negative value. Technically there is nothing wrong with this since we are interested in making <em>relative</em> measurements of displacements from baseline, but it makes more sense and is easier to read when the y-axis is centered around 0 nm, and also makes the data easier to work with when trying to plot etc. For mini-ensemble data, you must center your baseline around 0 or the analyzer won’t work because of the nature of the threshold analysis.</p>
+<p>Removing the baseline can be accomplished by calculating the average position of the baseline signal and subtracting that value from every point in the y-dimension. Baseline removal is currently implemented in 3 ways: baseline range, remove MV, and de-trending the data. Currently, these all work for 1-channel data sets. Only the baseline range and de-trending are implements for 2-channel data sets. You also can select “none” to save your data without this baseline removal.</p>
 <div id="range" class="section level4 hasAnchor" number="3.2.2.1">
 <h4><span class="header-section-number">3.2.2.1</span> Range<a href="clean-and-process.html#range" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>The baseline range is simplest and the most “legacy” (i.e. this was easiest for me to implement when I was doing this all manually before <code>{lasertrapr}</code>). You can manually select a quiescient perioed of data that represents the baseline signal and they mean position of this period of data will be calculated. By selecting <strong>remove base</strong> from the <strong>Graph Options</strong> and hitting <strong>Graph</strong> to update the app will provide a preview. <em>NOTE: this will not be saved until you explicitly hit save.</em></p>
+<p>The baseline range is simplest and the most “legacy” (i.e. this was easiest for me to implement when I was doing this all manually before <code>{lasertrapr}</code>). You can manually select a quiescent period of data that represents the baseline signal and the mean position of this period of data will be calculated. By selecting <strong>remove base</strong> from the <strong>Graph Options</strong> and hitting <strong>Graph</strong> to update the app will provide a preview. <em>NOTE: this will not be saved until you explicitly hit save.</em></p>
 <video width="800" height="400" controls>
 <source src="images/remove-baseline.mp4" type="video/mp4">
 <p>Your browser does not support the video tag.
@@ -280,7 +291,7 @@ Your browser does not support the video tag.
 </div>
 <div id="remove-mv" class="section level4 hasAnchor" number="3.2.2.2">
 <h4><span class="header-section-number">3.2.2.2</span> Remove MV<a href="clean-and-process.html#remove-mv" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Sometimes it can be tricky to find a nice quiescent period of baseline signal to calcualte the range. This is expecially the case with fast motors and mini-ensemble experiments. Instead it can be helpful to use the <strong>Remove MV</strong> option. This will perform a Mean-Variance transformation of the entire data trace and show the plot in an interactive window. You can then select the area that represents the baseline population, the mean is calculated, and by selecting <strong>Remove MV</strong> in <strong>Graph Options</strong> and hitting <strong>Graph</strong> to update, the app will provide a preview. <em>NOTE: this will not be saved until you explicitly hit save.</em></p>
+<p>Sometimes it can be tricky to find a nice quiescent period of baseline signal to calculate the range. This is especially the case with fast motors and mini-ensemble experiments. Instead it can be helpful to use the <strong>Remove MV</strong> option. This will perform a Mean-Variance transformation of the entire data trace and show the plot in an interactive window. You can then select the area that represents the baseline population, the mean is calculated, and by selecting <strong>Remove MV</strong> in <strong>Graph Options</strong> and hitting <strong>Graph</strong> to update, the app will provide a preview. <em>NOTE: this will not be saved until you explicitly hit save.</em></p>
 <video width="800" height="400" controls>
 <source src="images/remove-mv.mp4" type="video/mp4">
 <p>Your browser does not support the video tag.
@@ -299,7 +310,7 @@ Your browser does not support the video tag.
 <h3><span class="header-section-number">3.2.4</span> To Include, or not to Include…<a href="clean-and-process.html#to-include-or-not-to-include" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>I do not like deleting data, but I also do not like wasting my time. Unfortunately, not all that glitters is gold, or not all trap data that is collected is usable. If I <strong>know</strong> that data does not look like exceptional signal-to-noise, there are no events, or will probably not analyze well I want to exclude those events from analysis so they do not take time getting analyzed etc.</p>
 <p>By default, <code>{lasertrapr}</code> excludes all data from analysis so you need to <strong>Include</strong> the data for the app to analyze it.</p>
-<p>If you like the data check the <strong>Include</strong> button when saving data.</p>
+<p>If you like the data check the <strong>Include</strong> button when saving data. The analyzers will only analyze data traces who have options include = TRUE.</p>
 <video width="800" height="400" controls>
 <source src="images/save-processed-data.mp4" type="video/mp4">
 <p>Your browser does not support the video tag.
@@ -308,6 +319,10 @@ Your browser does not support the video tag.
 <div id="save" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Save!<a href="clean-and-process.html#save" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>NOTE: The app will not save anything unless you save the changes!</em></p>
+</div>
+<div id="historical-explanation-of-app-logic" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> Historical Explanation of App Logic<a href="clean-and-process.html#historical-explanation-of-app-logic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Way long ago, we use to analyze our trap data with a single R script and a collection of other helper scripts. It took a lot of time to do this one file at a time. So, we started trying out methods to allow us to “bulk” analyze our data from a single day. We would manually inspect our data and make spreadsheets detailing notes, information, and directions for the analysis to apply for each trace. Since <strong>lasertrapr</strong>, was initially written for personal use by Brent and Chris, we just adopted our manual spreadsheet system into the user interface of the app (and basically the app now builds these spreadsheet systems for us - most information is now stored in “options.csv”). We also kept the “bulk” analysis mentality - clean and process all your data traces from a day together then analyze them all together.</p>
 
 </div>
 </div>

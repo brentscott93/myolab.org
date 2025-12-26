@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Ensemble Average | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Ensemble Average | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Brent Scott" />
 
 
-<meta name="date" content="2025-07-11" />
+<meta name="date" content="2025-12-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -156,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.2" data-path="upload.html"><a href="upload.html#advanced-upload"><i class="fa fa-check"></i><b>2.3.2</b> Advanced Upload</a></li>
 <li class="chapter" data-level="2.3.3" data-path="upload.html"><a href="upload.html#lumicks"><i class="fa fa-check"></i><b>2.3.3</b> Lumicks</a></li>
 <li class="chapter" data-level="2.3.4" data-path="upload.html"><a href="upload.html#split-observations"><i class="fa fa-check"></i><b>2.3.4</b> Split Observations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="upload.html"><a href="upload.html#need-more-options"><i class="fa fa-check"></i><b>2.3.5</b> Need more options?</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="upload.html"><a href="upload.html#tldr"><i class="fa fa-check"></i><b>2.4</b> tl;dr</a></li>
 </ul></li>
@@ -173,28 +175,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="clean-and-process.html"><a href="clean-and-process.html#detrend-data"><i class="fa fa-check"></i><b>3.2.3</b> Detrend data</a></li>
 <li class="chapter" data-level="3.2.4" data-path="clean-and-process.html"><a href="clean-and-process.html#to-include-or-not-to-include"><i class="fa fa-check"></i><b>3.2.4</b> To Include, or not to Include…</a></li>
 <li class="chapter" data-level="3.2.5" data-path="clean-and-process.html"><a href="clean-and-process.html#save"><i class="fa fa-check"></i><b>3.2.5</b> Save!</a></li>
+<li class="chapter" data-level="3.2.6" data-path="clean-and-process.html"><a href="clean-and-process.html#historical-explanation-of-app-logic"><i class="fa fa-check"></i><b>3.2.6</b> Historical Explanation of App Logic</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="analyzers.html"><a href="analyzers.html"><i class="fa fa-check"></i><b>4</b> Analyzers</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="analyzers.html"><a href="analyzers.html#hm-modelchangepoint"><i class="fa fa-check"></i><b>4.1</b> HM-Model/Changepoint</a>
+<li class="chapter" data-level="4.1" data-path="analyzers.html"><a href="analyzers.html#hm-modelchangepoint-1-qpd"><i class="fa fa-check"></i><b>4.1</b> HM-Model/Changepoint (1 QPD)</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model"><i class="fa fa-check"></i><b>4.1.1</b> Options: HM-Model</a></li>
 <li class="chapter" data-level="4.1.2" data-path="analyzers.html"><a href="analyzers.html#options-changepoint"><i class="fa fa-check"></i><b>4.1.2</b> Options: Changepoint</a></li>
 <li class="chapter" data-level="4.1.3" data-path="analyzers.html"><a href="analyzers.html#options-displacements"><i class="fa fa-check"></i><b>4.1.3</b> Options: Displacements</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="analyzers.html"><a href="analyzers.html#mini-ensemble"><i class="fa fa-check"></i><b>4.2</b> Mini-Ensemble</a></li>
-<li class="chapter" data-level="4.3" data-path="analyzers.html"><a href="analyzers.html#isometric-force-clamp"><i class="fa fa-check"></i><b>4.3</b> Isometric Force Clamp</a>
+<li class="chapter" data-level="4.2" data-path="analyzers.html"><a href="analyzers.html#covariance-2-qpd"><i class="fa fa-check"></i><b>4.2</b> Covariance (2 QPD)</a></li>
+<li class="chapter" data-level="4.3" data-path="analyzers.html"><a href="analyzers.html#force-balance"><i class="fa fa-check"></i><b>4.3</b> Force Balance</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model-1"><i class="fa fa-check"></i><b>4.3.1</b> Options: HM-Model</a></li>
+<li class="chapter" data-level="4.3.1" data-path="analyzers.html"><a href="analyzers.html#options-force-balance"><i class="fa fa-check"></i><b>4.3.1</b> Options: Force Balance</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="analyzers.html"><a href="analyzers.html#tldr-1"><i class="fa fa-check"></i><b>4.4</b> tl;dr</a></li>
+<li class="chapter" data-level="4.4" data-path="analyzers.html"><a href="analyzers.html#mini-ensemble"><i class="fa fa-check"></i><b>4.4</b> Mini-Ensemble</a></li>
+<li class="chapter" data-level="4.5" data-path="analyzers.html"><a href="analyzers.html#isometric-force-clamp"><i class="fa fa-check"></i><b>4.5</b> Isometric Force Clamp</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model-1"><i class="fa fa-check"></i><b>4.5.1</b> Options: HM-Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="analyzers.html"><a href="analyzers.html#review"><i class="fa fa-check"></i><b>4.6</b> Review</a></li>
+<li class="chapter" data-level="4.7" data-path="analyzers.html"><a href="analyzers.html#tldr-1"><i class="fa fa-check"></i><b>4.7</b> tl;dr</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>5</b> Summarize</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="summarize.html"><a href="summarize.html#single--and-mini-ensemble-standard-mode"><i class="fa fa-check"></i><b>5.1</b> Single- and mini-ensemble standard mode</a></li>
 <li class="chapter" data-level="5.2" data-path="summarize.html"><a href="summarize.html#isometric-force-clamp-1"><i class="fa fa-check"></i><b>5.2</b> Isometric Force Clamp</a></li>
-<li class="chapter" data-level="5.3" data-path="summarize.html"><a href="summarize.html#tldr-2"><i class="fa fa-check"></i><b>5.3</b> tl;dr</a></li>
+<li class="chapter" data-level="5.3" data-path="summarize.html"><a href="summarize.html#r-functions"><i class="fa fa-check"></i><b>5.3</b> R functions</a></li>
+<li class="chapter" data-level="5.4" data-path="summarize.html"><a href="summarize.html#tldr-2"><i class="fa fa-check"></i><b>5.4</b> tl;dr</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="ensemble-average.html"><a href="ensemble-average.html"><i class="fa fa-check"></i><b>6</b> Ensemble Average</a>
 <ul>

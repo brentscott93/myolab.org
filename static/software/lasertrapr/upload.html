@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Upload Data | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Upload Data | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Brent Scott" />
 
 
-<meta name="date" content="2025-07-11" />
+<meta name="date" content="2025-12-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -156,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.2" data-path="upload.html"><a href="upload.html#advanced-upload"><i class="fa fa-check"></i><b>2.3.2</b> Advanced Upload</a></li>
 <li class="chapter" data-level="2.3.3" data-path="upload.html"><a href="upload.html#lumicks"><i class="fa fa-check"></i><b>2.3.3</b> Lumicks</a></li>
 <li class="chapter" data-level="2.3.4" data-path="upload.html"><a href="upload.html#split-observations"><i class="fa fa-check"></i><b>2.3.4</b> Split Observations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="upload.html"><a href="upload.html#need-more-options"><i class="fa fa-check"></i><b>2.3.5</b> Need more options?</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="upload.html"><a href="upload.html#tldr"><i class="fa fa-check"></i><b>2.4</b> tl;dr</a></li>
 </ul></li>
@@ -173,28 +175,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="clean-and-process.html"><a href="clean-and-process.html#detrend-data"><i class="fa fa-check"></i><b>3.2.3</b> Detrend data</a></li>
 <li class="chapter" data-level="3.2.4" data-path="clean-and-process.html"><a href="clean-and-process.html#to-include-or-not-to-include"><i class="fa fa-check"></i><b>3.2.4</b> To Include, or not to Include…</a></li>
 <li class="chapter" data-level="3.2.5" data-path="clean-and-process.html"><a href="clean-and-process.html#save"><i class="fa fa-check"></i><b>3.2.5</b> Save!</a></li>
+<li class="chapter" data-level="3.2.6" data-path="clean-and-process.html"><a href="clean-and-process.html#historical-explanation-of-app-logic"><i class="fa fa-check"></i><b>3.2.6</b> Historical Explanation of App Logic</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="analyzers.html"><a href="analyzers.html"><i class="fa fa-check"></i><b>4</b> Analyzers</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="analyzers.html"><a href="analyzers.html#hm-modelchangepoint"><i class="fa fa-check"></i><b>4.1</b> HM-Model/Changepoint</a>
+<li class="chapter" data-level="4.1" data-path="analyzers.html"><a href="analyzers.html#hm-modelchangepoint-1-qpd"><i class="fa fa-check"></i><b>4.1</b> HM-Model/Changepoint (1 QPD)</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model"><i class="fa fa-check"></i><b>4.1.1</b> Options: HM-Model</a></li>
 <li class="chapter" data-level="4.1.2" data-path="analyzers.html"><a href="analyzers.html#options-changepoint"><i class="fa fa-check"></i><b>4.1.2</b> Options: Changepoint</a></li>
 <li class="chapter" data-level="4.1.3" data-path="analyzers.html"><a href="analyzers.html#options-displacements"><i class="fa fa-check"></i><b>4.1.3</b> Options: Displacements</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="analyzers.html"><a href="analyzers.html#mini-ensemble"><i class="fa fa-check"></i><b>4.2</b> Mini-Ensemble</a></li>
-<li class="chapter" data-level="4.3" data-path="analyzers.html"><a href="analyzers.html#isometric-force-clamp"><i class="fa fa-check"></i><b>4.3</b> Isometric Force Clamp</a>
+<li class="chapter" data-level="4.2" data-path="analyzers.html"><a href="analyzers.html#covariance-2-qpd"><i class="fa fa-check"></i><b>4.2</b> Covariance (2 QPD)</a></li>
+<li class="chapter" data-level="4.3" data-path="analyzers.html"><a href="analyzers.html#force-balance"><i class="fa fa-check"></i><b>4.3</b> Force Balance</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model-1"><i class="fa fa-check"></i><b>4.3.1</b> Options: HM-Model</a></li>
+<li class="chapter" data-level="4.3.1" data-path="analyzers.html"><a href="analyzers.html#options-force-balance"><i class="fa fa-check"></i><b>4.3.1</b> Options: Force Balance</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="analyzers.html"><a href="analyzers.html#tldr-1"><i class="fa fa-check"></i><b>4.4</b> tl;dr</a></li>
+<li class="chapter" data-level="4.4" data-path="analyzers.html"><a href="analyzers.html#mini-ensemble"><i class="fa fa-check"></i><b>4.4</b> Mini-Ensemble</a></li>
+<li class="chapter" data-level="4.5" data-path="analyzers.html"><a href="analyzers.html#isometric-force-clamp"><i class="fa fa-check"></i><b>4.5</b> Isometric Force Clamp</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="analyzers.html"><a href="analyzers.html#options-hm-model-1"><i class="fa fa-check"></i><b>4.5.1</b> Options: HM-Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="analyzers.html"><a href="analyzers.html#review"><i class="fa fa-check"></i><b>4.6</b> Review</a></li>
+<li class="chapter" data-level="4.7" data-path="analyzers.html"><a href="analyzers.html#tldr-1"><i class="fa fa-check"></i><b>4.7</b> tl;dr</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>5</b> Summarize</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="summarize.html"><a href="summarize.html#single--and-mini-ensemble-standard-mode"><i class="fa fa-check"></i><b>5.1</b> Single- and mini-ensemble standard mode</a></li>
 <li class="chapter" data-level="5.2" data-path="summarize.html"><a href="summarize.html#isometric-force-clamp-1"><i class="fa fa-check"></i><b>5.2</b> Isometric Force Clamp</a></li>
-<li class="chapter" data-level="5.3" data-path="summarize.html"><a href="summarize.html#tldr-2"><i class="fa fa-check"></i><b>5.3</b> tl;dr</a></li>
+<li class="chapter" data-level="5.3" data-path="summarize.html"><a href="summarize.html#r-functions"><i class="fa fa-check"></i><b>5.3</b> R functions</a></li>
+<li class="chapter" data-level="5.4" data-path="summarize.html"><a href="summarize.html#tldr-2"><i class="fa fa-check"></i><b>5.4</b> tl;dr</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="ensemble-average.html"><a href="ensemble-average.html"><i class="fa fa-check"></i><b>6</b> Ensemble Average</a>
 <ul>
@@ -236,32 +246,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-lasertrapr-folder" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> The ~/lasertrapr/ folder<a href="upload.html#the-lasertrapr-folder" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <strong>{lasertrapr}</strong> app offers more than just the analysis of single laser trap data traces, but the application also serves as an <em>opinionated data management</em> tool. The app forces users to adopt a specific directory tree structure. All data can be organized into specific <strong>project</strong>, <strong>conditions</strong>, <strong>date</strong>, and <strong>observation</strong> folders. Additionally, this structure can be leveraged in the post-analysis stage to easily handle statistical analyses and auto-generation of plots for quick summary features provided by the app. Upon initial launch of the app, a <em>lasertrapr</em> folder will be created under <code>~/lasertrapr</code>. The exact location of the folder will vary depending on OS, but you can get the exact location by running <code>path.expand("~/lasertrapr")</code> in the R-console. All of your data and analyses will be created and saved within this folder.</p>
-<p>The app will take any uploaded data and copy it into an <strong>observation</strong> folder. In the laser trap, we will assume an “observation”is all the data collected at one mogul at a given time. This data, or observation, would have been collected on a specific day (date) under specific solution conditions (ionic strength, pH, mutations, etc.) and would belong to one bigger project. This logic provides the basis for the data management provided by the app. <strong>The project, conditions, and date folders must exist in order for data to be uploaded.</strong> The app will automatically create the observation folders when data is uploaded.</p>
+<p>The app will take any uploaded data and copy it into an <strong>observation</strong> folder. When I first started trapping, it was hard to get any data at all, and if I did get data, I would only record one trace per mogul (pedestal bead). So, I thought of this as one “observation” equating to data from one specific mogul. However, as I got better I started to collect multiple data traces on a single mogul so the terminology “observation” is more synonymous with “data trace” than with a given mogul. Most likely, you will end up with more than one “obs” folder for a mogul. For this reason, when uploading data, the app will save the original filenames in the folder for reference if needed.</p>
+<p>The data you get, or observe, in a trace would have been collected on a specific day (date) under specific solution conditions (ionic strength, pH, mutations, etc.) and would belong to one bigger project. This logic provides the basis for the data management provided by the app. <strong>The project, conditions, and date folders must exist in order for data to be uploaded.</strong> The app will automatically create the observation folders when data is uploaded. You must first create the project, conditions, and date folders via the Folder Manager.</p>
 </div>
 <div id="create-folders" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Create Folders<a href="upload.html#create-folders" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Located in the top right of the app is the <strong>Folder Manager</strong>. Click to open the menu (there is a known bug that when opening menu for first time some of the menu is cut off, you can click outside menu to close, and just re-opening will fix this menu display). Click the dropdown and either select your specific project folder or select “Create New…” to create a new folder. Avoid using spaces in the folder names. The prefix “project_” will be appended to the beginning. Continue to create folders in the same way for the conditions and date.</p>
-<p>In lieu of using spaces, users are encouraged to use “-” and “under_score” in your conditions naming conventions. I prefer to use a combination of both. I use a “-” as a space <em>within</em> a given variable name and “under_score” as a space separator <em>between</em> distinct variables in the conditions. For instance, if I collected data with a wild-type myosin (WT) at pH 7.0 and 30mM P<sub>i</sub> my conditions would be “WT_pH-7.0_30mM-Pi”. The app will add a “conditions” column to all the uploaded trapping data to ID each observation from one another (along with columns for the project, date, and observation info). The benefit of having a standard naming convention and knowing what the roles of the special space seperators are will allow for more flexibility and robust analysis later on. For example, eventually the conditions column can be separated into <em>many</em> variable columns easily in the post-analysis by knowing that variables are separated by “under_score”. It doesn’t matter what you use, just be consistent.</p>
+<p>Located in the top right of the app is the <strong>Folder Manager</strong>. Click to open the menu (there is a known bug that when opening menu for first time some of the menu is cut off, you can click outside menu to close, and just re-opening will fix this menu display). Click the dropdown and either select your specific project folder or select “Create New…” to create a new folder. I would recommend avoiding using spaces in the folder names. The prefix “project_” will be appended to the beginning of whatever name you choose for the project. Continue to create folders in the same way for the conditions and date.</p>
+<p>In lieu of using spaces, users are encouraged to use “-” and “under_score” in your conditions naming conventions. I prefer to use a combination of both. I use a “-” as a space <em>within</em> a given variable name and “under_score” as a space separator <em>between</em> distinct variables in the conditions. For instance, if I collected data with a wild-type myosin (WT) at pH 7.0 and 30mM P<sub>i</sub> my conditions would be “WT_pH-7.0_30mM-Pi”. The app will add a “conditions” column to all the uploaded trapping data to ID each observation from one another (along with columns for the project, date, and observation info). The benefit of having a standard naming convention and knowing what the roles of the special space separators will allow for more flexibility and robust analysis later on. For example, eventually the conditions column can be separated into <em>many</em> variable columns easily in the post-analysis by knowing that variables are separated by “under_score”. It doesn’t matter what you use, just be consistent.</p>
 </div>
 <div id="load-data" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Load Data<a href="upload.html#load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="simple-upload" class="section level3 hasAnchor" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Simple Upload<a href="upload.html#simple-upload" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A simple upload means the user has a complete file of trap data. One file = one complete record.</p>
-<p>Any regular delimited file type can be loaded into the app (thanks to <code>fread()</code> from {data.table}). Currently, the app only supports single trap detector data which means only one signal columns can be used for analysis. <strong>The first column in the data file will automatically be chosen as the trap data</strong>. The app will make a copy of the data and re-format it for use within itself. Uploading a dataset to the app will create an “obs-##” folder inside the currently selected data folder. The data will be saved within that “obs-##” as “trap-data.csv”. This last detail is purely informative. One of the benefit of using the app is not worrying about file management. You technically will never need to look inside the files created by the app, but it is still nice to know how it works and where to find things.</p>
+<p>Any regular delimited file type can be loaded into the app (thanks to <code>fread()</code> from {data.table}). Currently, you can upload one or two bead/detector datasets. If you have a one signal dataset without a header, <strong>the first column in the data file will automatically be chosen as the trap data</strong>. The app will make a copy of the data and re-format the data to be compatible. Uploading a dataset to the app will create an “obs-##” folder inside the currently selected date folder. The data will be saved within the date folder as a new “obs-##” folder and the data itself is saved in a file called “trap-data.csv”. This last detail is purely informative. One of the benefit of using the app is not worrying about file management. You technically will never need to look inside the files created by the app, but it is still nice to know how it works and where to find things. This can also be useful for troubleshooting.</p>
 <p>Multiple files can be uploaded at once too. Each file will be treated as a new observation. If three files are uploaded, then the folders “obs-01”,“obs-02”, and “obs-03” will be created within the selected date folder and “trap-data.csv” files will be initialized from the uploaded data within the respective observation folders.</p>
 <p>If you are uploading simulated data or data that has already been processed you can check the “Ready for Analysis?” box which will let you enter a trap stiffness (pN/nm) value and assumes you don’t need to convert data from mV to nm (the app will use a value of 1 for the mV to nm conversion during subsequent analysis). This allows users to skip the “Clean &amp; Process” section of the app since the data will be ready for analysis once the data is initialized.</p>
 </div>
 <div id="advanced-upload" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Advanced Upload<a href="upload.html#advanced-upload" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If you are uploading multi-channel data or have a custom file header with all the system’s calibration information, you can also upload these files types. This would be the case for data coming from the Greenberg’s trap, where the trap data in X and Y from the two detectors is preceeded by a 68 line header with various calibrations and information about the current state of the system.</p>
+<p>If you are uploading multi-channel data or have a custom file header with all the system’s calibration information, you can also upload these files types. This would be the case for data coming from the Greenberg trap where I did my postdoc. The trap data in X and Y from the two QPDs is preceded by a 68 line header with various calibrations and information about the current state of the system.</p>
 <p>To upload these types of dataset, select “Number of Channels” for how many detectors your system has.</p>
 <p>If there is a header in your data, check “Cal in header?” This will display a series of value boxes to fill out. The default values in these boxes are values that work with the trap data from the Greenberg lab’s trap. If you are using Greenberg lab data, you can just hit upload since everything is pre-filled.</p>
-<p>Fill in the boxes with the LINE NUMBERS that correspond to your specific header file. Looking at the example, the “Hz” box has a value of 15. This means the sampling frequency information is on line 15 of the header.</p>
+<p>Fill in the boxes with the <strong>LINE NUMBERS</strong> that correspond to your specific header file. Looking at the example, the “Hz” box has a value of 15. This means the sampling frequency information is on line 15 of the header.</p>
 <p>Header Size: The number of lines in the header. The app will save the header in a separate file called “header.csv”.</p>
-<p>Hz: sampling frequency. Enter the line number that this is found in the header.</p>
-<p>nm/V and pN/nm: calibration numbers. Enter the line number that this is found in the header.</p>
-<p>Feedback motor bead: value should be 1 or 2 denoting which trap was the motor bead when performing the isometric force clamp experiment.</p>
+<p>Hz: sampling frequency. Enter the line number where this is found in the header. Not the actual value.</p>
+<p>nm/V and pN/nm: calibration numbers. Enter the line number where this is found in the header. Not the actual values.</p>
+<p>Feedback motor bead: value should be 1 or 2 denoting which trap was the motor bead when performing the isometric force clamp experiment. If not applicable, just put 1.</p>
 <p>Trap 1/2 Col: The column numbers where the actual data are after the header. Default is 1, 3 which means that the 1st and 3rd column have the data in the X dimensions recorded by the QPD.</p>
 </div>
 <div id="lumicks" class="section level3 hasAnchor" number="2.3.3">
@@ -271,7 +282,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="split-observations" class="section level3 hasAnchor" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Split Observations<a href="upload.html#split-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This is a special use case for the Debold Lab. The trapping computer saves a separate .txt file for every 5-seconds of data collected. All .txt files from a given conditions/date combination can be uploaded at once and the app will read the time-stamps and concatenate corresponding observation files together based upon the user selected time threshold.</p>
+<p>This is a special use case for the Debold Lab. The trapping computer saves a separate .txt file for every 5-seconds of data collected. All .txt files from a given conditions/date combination can be uploaded at once and the app will read the time-stamps and concatenate corresponding observation files together based upon the user selected time threshold which is in seconds. I would use 10 seconds.</p>
+</div>
+<div id="need-more-options" class="section level3 hasAnchor" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Need more options?<a href="upload.html#need-more-options" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Just email me or raise an issue on GitHub to discuss support for you specific data you want to upload.</p>
 </div>
 </div>
 <div id="tldr" class="section level2 hasAnchor" number="2.4">
