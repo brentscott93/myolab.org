@@ -20,11 +20,9 @@ description: Documentation for using the lasertrapr app
 
 ## Install R & RStudio
 
-Currently, **{lasertrapr}** can only be launched from an active R-session. Before you begin you will need to [download and install R](https://cloud.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/#download). Both of these are free. RStudio is an IDE (integrated development environment) and is not 100% necessary, but is recommended. Follow the instructions on the respective websites to complete installation. 
+Currently, **{lasertrapr}** can only be launched from an active R-session. Before you begin you will need to [download and install R](https://cloud.r-project.org/) and optionally [RStudio](https://www.rstudio.com/products/rstudio/download/#download). Both of these are free. RStudio is an IDE (integrated development environment) and is not 100% necessary but is recommended if you are new to R. Follow the instructions on the respective websites to complete installation. 
 
-Additionally, you will need to install the [R build toolchain](https://r-pkgs.org/setup.html#setup-tools). This allows a user to build an R-package from source on their own computer. The link provides directions on how to do this on Windows, Mac, and Linux. 
-
-At the moment there is a lot of overheard needed to get the application up and running. Hopefully, in the future a more stable version can be released onto CRAN (Comprehensive R Archive Network) or preferably as a standalone program. 
+Additionally, you will need to install the [R build toolchain](https://r-pkgs.org/setup.html#setup-tools). This allows a user to build an R-package from source on their own computer which is necessary to build this application since it is an R package. The link provides directions on how to do this on Windows, Mac, and Linux. 
 
 ## Download **{lasertrapr}**
 
@@ -54,7 +52,7 @@ library(lasertrapr) # load the package and its dependencies
 run_app() # this will launch the app GUI in your default web browser
 ```
 
-Once the initial setup and installation is completed, the above two lines is the only code that will need to be run each time you want to use the app. You can update to the current developers version anytime by re-running `install.packages("lasertrapr")` or `devtools::install_gitub("brentscott93/lasertrapr")`. 
+Once the initial setup and installation is complete, the above two lines is the only code that will need to be run each time you want to use the app. You can update to the current developers version anytime by re-running `install.packages("lasertrapr")` or `devtools::install_gitub("brentscott93/lasertrapr")`. 
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages

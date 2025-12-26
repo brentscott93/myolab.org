@@ -6,13 +6,11 @@ Sometimes your filament velcros, snaps, you stickdown, or you accidentally forgo
 
 One of the main benefits of `{lasertrapr}` is the ability to easily clean your data. Even if you do not like/need the analyzers or other features in the app, you can easily just use it to clean, process, and export your data to another application. 
 
-
-
 ### Cut data
 
-The most common use case for needing to cut data from a trap data trace is when during collection an actin-filament snaps or the myosin sticks down. In these cases, there is still good/usable data present in the trace, but the presence of the large signal disruptions caused by the snapping filament or stick-down could throw off the analyzers. The easiest fix is to cut these portion of the data out. I generally do **not** recommend deleting data except for these cases in which case I refer to this as "trimming" the data.
+The most common use case for needing to cut data from a trap data trace is when during collection an actin-filament snaps or the myosin sticks down. In these cases, there is still good/usable data present in the trace, but the presence of the large signal disruptions caused by the snapping filament or stick-down will throw off the analyzers. The easiest fix is to cut these portion of the data out. I generally do **not** recommend deleting data except for these cases in which case I refer to this as "trimming" the data (cutting data from the end).
 
-Trimming (deleting) an observation to make it analyzer ready is easy with `{lasertrapr}`. Use the **Folder Manager** to select an observation, load the observation, select the data to delete, and hit the Cut button. *NOTE: This permanently deletes the range of data selected from the trap trace and is irreversible (unless you re-upload your data).*
+Trimming (deleting) an observation to make it analyzer ready is easy with `{lasertrapr}`. Use the **Folder Manager** to select an observation, load the observation, select the data to delete, and hit the Cut button. *NOTE: This permanently deletes the range of data selected from the trap trace and is irreversible (unless you re-upload your data).*  **NOTE: after moving data the graph should refresh but there is a quirk where sometimes the graph refreshes and shows nothing. Just hit the "Graph" button again to show the updated trace.**
 
 
 <video width="800" height="400" controls>
@@ -21,9 +19,9 @@ Your browser does not support the video tag.
 </video>
 
 ### Move data
-In some cases, you do not want to delete data, but to split one record into 2 different observations. This is called "moving" data in `{lasertrapr}`. Sometimes, during collection stage drift occurs so the trace starts with a stable/horizontal time-series, but then over time the data starts to trend with time upwards in the y-dimensions turning the signal into a diagonal line. One way to deal with this is to split the single **obs** into two seperate ones so the two-halves can be processed separately with the diagonal potion getting detrended later. 
+In some cases, you do not want to delete data, but to split one record into 2 different "observations" or data traces. This is called "moving" data in `{lasertrapr}`. Sometimes, during collection stage drift occurs so the trace starts with a stable/horizontal time-series, but then over time the data starts to trend with time upwards in the y-dimensions turning the signal into a diagonal line. One way to deal with this is to split the single **obs** into two separate ones so the two-halves can be processed separately with the diagonal potion getting detrended later. 
 
-Moving data is the same procedure as cutting data, except for the final button pushed! Load an **obs**, select the data to move, and click move. A new observation folder will be made with the selected data and the selected data will be deleted out of the current **obs**. *NOTE: This cannot be undone without manual intervention (you would have to load the trap-data.csv files into R and `rbind` them back together or re-upload the data and start again).* 
+Moving data is the same procedure as cutting data, except for the final button pushed! Load an **obs**, select the data to move, and click move. A new observation folder will be made with the selected data and the selected data will be deleted out of the current **obs**. *NOTE: This cannot be undone without manual intervention (you would have to load the trap-data.csv files into R and `rbind` them back together or re-upload the data and start again).*  **NOTE: after moving data the graph should refresh but there is a quirk where sometimes the graph refreshes and shows nothing. Just hit the "Graph" button again to show the updated trace.**
 <video width="800" height="400" controls>
   <source src="images/move.mp4" type="video/mp4">
 Your browser does not support the video tag.
@@ -32,11 +30,11 @@ Your browser does not support the video tag.
 
 ## Process
 
-Another benefit that I have enjoyed while analyzing my own data with `{lasertrapr}` is the ability to easily visualize how processing will transform my data before deciding to save/analyze it. Currently, you can convert data from mV-to-nm with a pre-determined user conversion value, center the baseline mean to zero using either the "baseline range" or "remove mv" techniques, or you can detrend your data with a peice-wise linear detrend-er. 
+Another benefit that I have enjoyed while analyzing my own data with `{lasertrapr}` is the ability to easily visualize how processing will transform my data before deciding to save/analyze it. Currently, you can convert data from mV-to-nm with a pre-determined user conversion value, center the baseline mean to zero using either the "baseline range" or "remove mv" techniques, or you can detrend your data with a piecewise linear detrend-er. *Note, currently Remove MV is only supported for single channel datasets. Also, you do not have to select a processor. Data can be saved with "none" processor selected*. 
 
 ### Convert to nm
 
-Short and sweet. Enter your pre-determined mV-to-nm conversion in the **Step Cal** box and hit **Graph** to preview.
+Short and sweet. Enter your pre-determined mV-to-nm conversion in the **Step Cal** box and hit **Graph** to preview. **NOTE: If using Lumicks data, their raw data is in pN not volts.**
 
 <video width="800" height="400" controls>
   <source src="images/nm.mp4" type="video/mp4">
@@ -46,12 +44,14 @@ Your browser does not support the video tag.
 
 ### Remove baseline
 
-When collecting laser trap data the detector is measuring the relative intensity of light across its four-quadrants. The data is saved in units of volts (V or mV) and is usually not centered around 0 V (unless your detector is on a translatable mounting bracket that allows the user to 0 out the detector manually). So, when the data is converted to nanometers the y-axis range becomes some arbitrarily large or nonsense negative value. Technically there is nothing wrong with this since we are interested in making *relative* measurements of displacements from baseline, but it makes more sense and is easier to read when the y-axis is centered around 0nm. This can be accomplished by calculating the average position of the baseline signal and subtracting that value from every point in the y-dimension. Baseline removal is currently implemented in 3 ways: baseline range, remove MV, and de-trending the data. Currently, these all work for 1-channel data sets. Only the baseline range and de-trending are implements for 2-channel data sets.
+When collecting laser trap data the detector is measuring the relative intensity of light across its four-quadrants. The data is saved in units of volts (V or mV) and is usually not centered around 0 V (unless your detector is on a translatable mounting bracket that allows the user to 0 out the detector manually). So, when the data is converted to nanometers the y-axis range becomes some arbitrarily large or nonsense negative value. Technically there is nothing wrong with this since we are interested in making *relative* measurements of displacements from baseline, but it makes more sense and is easier to read when the y-axis is centered around 0 nm, and also makes the data easier to work with when trying to plot etc. For mini-ensemble data, you must center your baseline around 0 or the analyzer won't work because of the nature of the threshold analysis. 
+
+Removing the baseline can be accomplished by calculating the average position of the baseline signal and subtracting that value from every point in the y-dimension. Baseline removal is currently implemented in 3 ways: baseline range, remove MV, and de-trending the data. Currently, these all work for 1-channel data sets. Only the baseline range and de-trending are implements for 2-channel data sets. You also can select "none" to save your data without this baseline removal.
 
 
 #### Range
 
-The baseline range is simplest and the most "legacy" (i.e. this was easiest for me to implement when I was doing this all manually before `{lasertrapr}`). You can manually select a quiescient perioed of data that represents the baseline signal and they mean position of this period of data will be calculated. By selecting **remove base** from the **Graph Options** and hitting **Graph** to update the app will provide a preview. *NOTE: this will not be saved until you explicitly hit save.*
+The baseline range is simplest and the most "legacy" (i.e. this was easiest for me to implement when I was doing this all manually before `{lasertrapr}`). You can manually select a quiescent period of data that represents the baseline signal and the mean position of this period of data will be calculated. By selecting **remove base** from the **Graph Options** and hitting **Graph** to update the app will provide a preview. *NOTE: this will not be saved until you explicitly hit save.*
 
 <video width="800" height="400" controls> 
   <source src="images/remove-baseline.mp4" type="video/mp4">
@@ -59,7 +59,7 @@ Your browser does not support the video tag.
 </video>
 
 #### Remove MV
-Sometimes it can be tricky to find a nice quiescent period of baseline signal to calcualte the range. This is expecially the case with fast motors and mini-ensemble experiments. Instead it can be helpful to use the **Remove MV** option. This will perform a Mean-Variance transformation of the entire data trace and show the plot in an interactive window. You can then select the area that represents the baseline population, the mean is calculated, and by selecting **Remove MV** in **Graph Options** and hitting **Graph** to update, the app will provide a preview. *NOTE: this will not be saved until you explicitly hit save.*
+Sometimes it can be tricky to find a nice quiescent period of baseline signal to calculate the range. This is especially the case with fast motors and mini-ensemble experiments. Instead it can be helpful to use the **Remove MV** option. This will perform a Mean-Variance transformation of the entire data trace and show the plot in an interactive window. You can then select the area that represents the baseline population, the mean is calculated, and by selecting **Remove MV** in **Graph Options** and hitting **Graph** to update, the app will provide a preview. *NOTE: this will not be saved until you explicitly hit save.*
 
 <video width="800" height="400" controls>
   <source src="images/remove-mv.mp4" type="video/mp4">
@@ -76,14 +76,13 @@ Your browser does not support the video tag.
 </video>
 
 
-
 ### To Include, or not to Include...
 
 I do not like deleting data, but I also do not like wasting my time. Unfortunately, not all that glitters is gold, or not all trap data that is collected is usable. If I **know** that data does not look like exceptional signal-to-noise, there are no events, or will probably not analyze well I want to exclude those events from analysis so they do not take time getting analyzed etc. 
 
 By default, `{lasertrapr}` excludes all data from analysis so you need to **Include** the data for the app to analyze it.
 
-If you like the data check the **Include** button when saving data. 
+If you like the data check the **Include** button when saving data. The analyzers will only analyze data traces who have options include = TRUE.
 
 <video width="800" height="400" controls>
   <source src="images/save-processed-data.mp4" type="video/mp4">
@@ -93,3 +92,7 @@ Your browser does not support the video tag.
 ### Save!
 
 *NOTE: The app will not save anything unless you save the changes!*
+
+### Historical Explanation of App Logic
+
+Way long ago, we use to analyze our trap data with a single R script and a collection of other helper scripts. It took a lot of time to do this one file at a time. So, we started trying out methods to allow us to "bulk" analyze our data from a single day. We would manually inspect our data and make spreadsheets detailing notes, information, and directions for the analysis to apply for each trace. Since **lasertrapr**, was initially written for personal use by Brent and Chris, we just adopted our manual spreadsheet system into the user interface of the app (and basically the app now builds these spreadsheet systems for us - most information is now stored in "options.csv"). We also kept the "bulk" analysis mentality - clean and process all your data traces from a day together then analyze them all together. 

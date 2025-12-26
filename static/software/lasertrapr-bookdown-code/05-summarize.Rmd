@@ -4,17 +4,37 @@ The app will automatically detect which type of analyzer was used to analyze eac
 
 ## Single- and mini-ensemble standard mode
 
-The summarize feature is designed to be more of a quick summary feature that provides a quick look at the summary statistics of your project with minimal user-implemented choices. I found it to be convenient when you just want a quick check on how a project is progressing wanting to see averages, standard errors, sample size, etc to update myself and the lab. You can change colors or re-reorder the factors for display purposes, but other than that it will create the same default statistical figures powered by the [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/) package. This provides a quick statistical tasks to check on significance. Currently, conditions are grouped indivudally and performed in a "one-way" fashion. Click the link to visit the {ggstatsplot} website for insight into the meanings of all the statistical symbols. These quick summaries can be exported to standalone .html dashboards to share. In the future I would like to add support to export to .ppt files as well. 
+The summarize feature is designed to be more of a quick summary feature that provides a quick look at the summary statistics of your project with minimal user-implemented choices. I found it to be convenient when you just want a quick check on how a project is progressing wanting to see averages, standard errors, sample size, etc to update myself and the lab. You can change colors or re-reorder the factors for display purposes. These quick summaries can be exported to standalone .html dashboards to share. In the future I would like to add support to export to .ppt files as well. 
 
 Summarizing data will read, filter, combine, and save all "measured-events.csv" into your "summary" folder within your project with the date, project name, and "all-measured-events.csv" as the identifying file name. The summarized data will also be saved in a similar fashion but as "summary-data.csv".
 
-**Note:** The **split conditions** feature can be used to separate your **conditions** name into multiple unique variable ID's which can be useful for later use when creating plots. Split conditions only works if you follow the condition naming convention described in these docs. No spaces - EVER! Underscores "_" separate distinct varaibles and dashes "-" can be used as spaces within a variable. When selecting split conditions, *n* number of textboxes will appear for the number of variables present in your conditions name, which is solved by identifying the number of underscores present plus 1. You can then enter the variables names which will become column names in the data. 
+**The interface is very basic and will show a table and cumulative distributions of some key parameters and fits. But note, at this point, end-users generally just want all their data that is exported to "summary/*_all-measured-events.csv" so they can upload to their favorite plotting or statistics software.**
+
+**Note:** The **split conditions** feature can be used to separate your **conditions** name into multiple unique variable ID's which can be useful for later use when creating plots. Split conditions only works if you follow the condition naming convention described in these docs. No spaces - EVER! Underscores "_" separate distinct variables and dashes "-" can be used as spaces within a variable. When selecting split conditions, *n* number of textboxes will appear for the number of variables present in your conditions name, which is solved by identifying the number of underscores present plus 1. You can then enter the variables names which will become column names in the data. 
 
 ## Isometric Force Clamp
 
 The isometric force clamp summary analysis will plot the Force vs lifetime of the binding events and use maximum likelihood estimation to fit the Bell-bond equation as detailed in [MEMLET](https://pmc.ncbi.nlm.nih.gov/articles/PMC4968482/pdf/main.pdf). To perform this summary analysis, you need to select a project that has been analyzed with the Isometric Force Clamp analyzer and then the buttons will automatically populate in the "Control" box. You can select the "factor order", the minimum force to include in the plots/fits, the minimum time duration of events to include, and the colors of the resulting graphs.
 
 Click summarize and the plots will appear eventually. This could take several seconds because it also calculates 95% confidence intervals around the parameter estimates using boostrapping techniques. These data are saved in the lasertrapr/summary folder. The parameter estimations and the bootstrap results can be uploaded in the MATLAB based computational tool to test for significant differences. Follow the instructions for ["Script_hypothesis_testing.m"](https://github.com/GreenbergLab/Thin_Filament_Fitting). In the future, translating this script into R to bake into the app would be great to have.
+
+## R functions
+
+Since the application is also an R package, there are convenient R functions you can access to interact with your data via R by loading the *lasertrapr* app. Most of these are useful/helpful for summarizing your data and include some of these below. *Note, these are the same R functions that the app calls when users interact with buttons in the GUI, but are also exposed as R function for more flexible use:*
+
+Type, `?function_name()` in your R console for more information and details on useage of each:
+
+`rbind_measured_events()` for reading in all "measured-events.csv" files for a given project. This will apply all the correct filters (e.g. include = TRUE, review = TRUE, event_user_excluded = FALSE) 
+
+`fit_normal_variable()` will generate a dataframe of random numbers from a normal distribution with mean and sd equal to that of the inputted data. This can be used for plotting normal fit lines over displacement and substep datasets.
+
+`fit_attachment_durations()` will fit a single exponential function with MLE methods to the time_on data.
+
+`fit_force_clamp()` will use MLE to fit the Bell Bond equation to Force / Lifetime datasets.
+
+`split_conditions_column()` can easily separate your conditions columns into multiple variables for statistical testing and different grouping of summary variables
+
+`plot_overlay` for generating ggplots of trap traces with colored events. This is the function the "snapshot" button calls.
 
 ## tl;dr
 

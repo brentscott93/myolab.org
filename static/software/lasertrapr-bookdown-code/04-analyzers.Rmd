@@ -1,14 +1,24 @@
 # Analyzers
 
-Currently, there are several analyzers available within the app. The HM-Model/Changepoint analyzer was designed for single molecule trapping data and the mini-ensemble analyzer is self-explanatory. Both analyzers have a similar UI with the ability to impose user control over some of the analysis parameters. 
+Currently, there are several analyzers available within the app:  
+
+1. The HM-Model/Changepoint (1 QPD) analyzer was designed for single molecule trapping data
+2. Covariance (2 QPD) also for single molecule data
+3. Force Balance for force ramp protocols 
+4. Isometric Force Clamp (self-named)
+5. Mini-Ensemble analyzer (self-named) 
+
+These analyzers have a similar UI with the ability to impose user control over some of the analysis parameters. 
 
 The covariance analyzer is for single molecule experiments collected on systems with 2 QPDs.
 
-There is also an analyzer for the isometric force clamp, a feedback experiment.
+The Force Balance requires a "preferred channel" to be selected in clean and process.
+
+There is also an analyzer for the isometric force clamp, a feedback experiment, requires 2 bead signals and a "Feedback motor bead" designated when uploading data.
 
 For all analyzers, you have the option to run the analyzer through all of the observations in a given date folder, or you can select just a single observation. If you select to analyze a single observation you must also select the observation you want to analyze in the Folder Navigator (top right button). 
 
-## HM-Model/Changepoint
+## HM-Model/Changepoint (1 QPD)
 
 Intended for single molecule data, this analyzer uses a combination approach to identify single molecule binding events. A Hidden Markov Model is implemented with the [{depmixS4}](https://cran.r-project.org/web/packages/depmixS4/vignettes/depmixS4.pdf) R-package on a running window transformation of the data to estimate locations of binding events. Then a changepoint analysis is applied to a small subset of the original trapping data around the HM-Model estimated transition periods with the [{changepoint}](https://www.jstatsoft.org/article/view/v058i03) R-package to precisely choose the most probable data point (at the original sampling frequency) where the binding event occurred.
 
@@ -32,10 +42,21 @@ There are two sections the changepoint options. Since changepoint analysis is ap
 
 Users can select one of two methods for peak displacements to be calculated. The "average" method calculates the mean signal position of the entire ID'd event minus the first and last 5ms. Alternatively, users can opt to use the "peak" method which returns a maximum value from a 5ms running mean of the ID'd event. 
 
-#### Options: Hz
 
-Users need to specify the sampling frequency (in Hz) for proper conversion between data points and seconds. Defaults to 5000 Hz.
+## Covariance (2 QPD)
 
+Very similar to the HM-Model/Changepoint (1 QPD) except replaces the variance dimension with covariance between the beads position. This provides event displacement, force, and time on calculations for every event in both data traces (bead 1 and bead 2). You can take the average of both signal's values or select one or the other to report. Just make sure to properly deal with this in your summary calculations.
+
+
+## Force Balance
+
+This is the exact analyzer as the HM-Model/Changepoint (1 QPD) analysis without "direction correction" and with the addition for the "force balance" metric. This analysis is used with force ramping protocols, like waving an actin filament over a load dependent actin binding protein. As one bead is pulled out of its trap, the other bead relaxes to the center of its trap. Users first select the "preferred bead" in clean and process where the displacements are largest or most visible. The analyzer identifies events in the "preferred channel" and then goes into the "other" bead channel and calculates its relative displacements/force. Then the "preferred" signal force and "other" force are subtracted to provide a "force balance" system force that is experienced by the protein. 
+
+The "other" force/displacement is calculated over a 5 ms datapoint window surrounding the "peak-nm-index" metric determined from the preferred bead.
+
+### Options: Force Balance
+
+Same as HM-Model/Changepoint (1 QPD)
 
 ## Mini-Ensemble
 
@@ -44,11 +65,19 @@ This mini-ensemble analyzer uses a simple thresholding method to ID events. User
 
 ## Isometric Force Clamp
 
-The Isometric Force Clamp analyzer only works with 2-channel datasets. It works by applying a 2-state hidden markov model to the motor bead position to identify the binding events. The average force of the event and the corresponding lifetime are saved in the output files. After analysing all your data, you can use the "Summarize" tab to fit the Bell-bond equation to this resulting data. 
+The Isometric Force Clamp analyzer only works with 2-channel datasets. It works by applying a 2-state hidden markov model to the motor bead position to identify the binding events. The average force of the event and the corresponding lifetime are saved in the output files. After analyzing all your data, you can use the "Summarize" tab to fit the Bell-bond equation to this resulting data. 
 
 ### Options: HM-Model
 
 You can select the window width (in data points) and window slide, along with "EM Random Start" (see above).
+
+## Review
+
+You can run any data through any analyses and get some numbers as a result. But do the numbers mean something? Do the numbers make sense? Users of *lasertrapr* are recommended to do what we do: visually inspect every identified event in every data trace to assess the validity of the analysis. If this analysis appears correct, select "Yes" for "Should this analysis be accepted?" (i.e. review = TRUE). This does not delete any data, but allows the application to know which data to include in summary calculations or ensemble averages. It is just adding a TRUE/FALSE column to filter on in "option.csv".
+
+You can also filter out individual event with "Review options" button.
+
+The "snapshot" buttom (camera icon) allows you to export data plots with highlighted events. Notably, you can export RDS files which are ggplot object which is how we make our figures for our papers.
 
 ## tl;dr
 
