@@ -1,0 +1,27 @@
+# Tips & Troubleshooting
+
+Below are some quirks with the program mixed with tips about things to note or be careful of when using the app or data generated from it.
+
+Please feel free to add known problems, issues, or workarounds here. You can email me or clone this repo and edit the markdown source at  "https://github.com/brentscott93/myolab.org/blob/master/static/software/lasertrapr-bookdown-code/10-issues.Rmd" and open a pull-request so that I can merge and rebuild. 
+
+## Folder manager window 
+
+The folder manager opens up off the partially off the screen after restart. Just close and re-open and it is fixed. Does not effect performance. Low priority. 
+
+## Simulator slider ranges
+
+After changing the rates of an exponential the range sliders do not update to the new min/max values. Close the options and re-open for them to refresh. Does not effect performance. Low priority.
+
+## measured-events.csv
+
+Be careful when manually working with your "measured-events.csv" files. The app never deletes data but uses different filtering strategies in combination of options.csv to select the data you mark as useable throughout interacting with the app. Clean & Process, include == TRUE. Analysis tab, review == TRUE. Excluding events, user_event_excluded == FALSE. 
+
+The lasertrapr R package provided a function `rbind_measured_function()` that will read-in all data and apply the correct filters to make sure you are working only with the data you want. If you write you own data, just remember that `list.files()` to find all your "measured-events.csv" might also return data you went back and excluded. Tip: first read in "options.csv", apply filters, and then read in the file paths that meet the criteria. Look at source code of `rbind_measured_events()` to see our strategy.
+
+## Summarize "export"
+
+You do not need to hit export to save the summarized data. When hitting "summarize" the app automatically saves the result of `rbind_measured_events` in your summary folder within the app, including the file you will want most: "*_all-measured-events.csv*". The "export" function is experimental and lower priority as we assess its usefullness.
+
+  
+  
+

@@ -2,11 +2,11 @@
 
 *lasertrapr* has a built-in data simulator that will write *lasertrapr* friendly data sets into your *lasertrapr* data folder. First create a new project, conditions, and date folders. For the "project" and "conditions" folders, they must have "simulation" somewhere in the project name and condition name or else the application will not save data into those folders. 
 
-This is taken as a precaution. The app is preventing you from doing something you should not do. DO NOT SIMULATE DATA INTO A REAL PROJECT OR CONDITION FOLDER. It also prevents accidents from occuring (forgetting to switch projects/conditions before simulating).
+This is taken as a precaution. The app is preventing you from doing something you should not do. DO NOT SIMULATE DATA INTO A REAL PROJECT OR CONDITION FOLDER. It also prevents accidents from occurring (forgetting to switch projects/conditions before simulating).
 
-## Monte carlo myosin simulations
+## Monte carlo "myosin" simulations
 
-The simulator generates "raw" optical trapping datasets that qualitivaly look like the traces you would get from a singl molecule optical trapping experiments with a 1 QPD setup. The simulator uses a monte carlo style simulation to quantitavely reflect the underlying model, which is based on the mechanochemical scheme of myosin interactin with actin:
+The simulator generates "raw" optical trapping datasets that qualitatively look like the traces you would get from a single molecule optical trapping experiments with a 1 QPD setup. The simulator uses a monte carlo style simulation to quantitatively reflect the underlying model, which is based on the mechanochemical scheme of myosin interacting with actin:
 
 - M.ATP/M.ADP.Pi (one detached state)
 - Attachment into AM.ADP.Pi or AM.ADP (decrease in variance)
@@ -16,7 +16,7 @@ The simulator generates "raw" optical trapping datasets that qualitivaly look li
 - AM (rigor)
 - Detach/Restart, that is one "event"
 
-The simulator only progresses forward through the cycle (there are no possibilites of reversals) and the simulation has no load dependent processees. The rates of the biochemical steps are set by the user and sampled by the simuluator from exponential distributions that you can truncate to avoid extremely slow or fast reaction times. Users can set characteristics of the baseline noise and event population signal-to-noise ratio and magnitude of the displacement distribution. Optionally, users can enter a second substep that represents "the hitch" that most myosins have been shown to have.
+The simulator only progresses forward through the cycle (there are no possibility's of reversals) and the simulation has no load dependent processes. The rates of the biochemical steps are set by the user and sampled by the simulator from exponential distributions that you can truncate to avoid extremely slow or fast reaction times. Users can set characteristics of the baseline noise and event population signal-to-noise ratio and magnitude of the displacement distribution. Optionally, users can enter a second substep that represents "the hitch" that most myosins have been shown to have in single molecule optical trapping experiments.
 
 ## Simulate Data
 
@@ -24,10 +24,37 @@ To simulate data, create a new project folder with "simulation" in the name. Cre
 
 Expand the "Simulate Data" box within the "Upload Data" tab. The grey box on the left lists all the parameters that the user can change about the simulation. Click on options to pop open a dialogue box that will allow you to change these parameters. 
 
-**BASELINE**: Characterizes the mean position and sd/variance of the baseline population. Most likely, you will leave this as-is. You can change the SD/variance to simulate a stiffer or looser trap. SD = 8 is qualitivately similar to the experimental data I would record on the UMass trap in Totman B29 when I was a grad student working with a ~0.04 pN/nm trap stifness. Therefore, that has historically been the default.
+First, hit the simulate button to generate a single simulated data trace. You can then save it by clicking "Save". The app will create a new "obs-##" folder everytime you hit save. You can hit "simulate" again to do another simulation, and then save again to continue saving traces.
 
-**Displacements**: This allows you to select the mean and SD/variance of the baseline population. The mean value will be the size of your initial 'powerstroke'. Brownian captures will occur in these simulations as the SD is also set to 8, which is the same value as the baseline SD. You should set the displacement SD to be equal to baseline SD for reasons that Justin Molloy details in his 1994 papers. If you do not want to simulate brownian captures and want every displacement to be the same absolute value, set the SD to 0. 
+If you want to simulate 1000 events, I would recommend 10x100 events or similar to avoid extremely large files which can be slow for the app to visualize and interact with.
 
-**Pi 
+## Options
+
+**Baseline**: Modeled as a normal distribution. Characterizes the mean position and sd/variance of the baseline population. Most likely, you will leave this as-is. You can change the SD/variance to simulate a stiffer or looser trap. SD = 8 is qualitatively similar to the experimental data I would record on the UMass trap in Totman B29 when I was a grad student working with a ~0.04 pN/nm trap stiffness. Therefore, that has historically been the default.
+
+**Displacements**: Modeled as a normal distribution. This allows you to select the mean and SD/variance of the baseline population. The mean value will be the size of your initial 'powerstroke'. Brownian captures will occur in these simulations as the SD is also set to 8, which is the same value as the baseline SD. You should set the displacement SD to be equal to baseline SD for reasons that Justin Molloy details in his 1994 papers. If you do not want to simulate brownian captures and want every displacement to be the same absolute value, set the SD to 0. 
+
+**Pi release**: Modeled as a single exponential. You can select whether the displacement occurs before, after, or uncoupled from the Pi release step. If "uncoupled", the attachment duration is only comprised of ADP release and ATP binding. You can select the rate of the exponential distribution in the user interface if you decide to have this rate. If "Before", the simulation will progress as: pi release, displacement, adp release, atp binding. If selected "After", the simulation will proceed as: displacement, pi release, adp release, atp binding.
+
+**ADP release**: Modeled as a single exponential. Users can select the rate of this exponential distribution and whether or not to include a second displacement that occurs after ADP is released in the simulation. This rate would become the rate of the forward ensemble average.
+
+**ATP binding**: Modeled as a single exponential. While in reality this is a complicated biochemical measurement, for this simulation ATP induced detachment is modeled as a single exponential parameter to describe the usual second order rate of ATP induced dissociation. This is modeled a single exponential function since when trapping at low ATP this becomes a pseudo-first order rate where you can fit the backwards ensemble averages with a single exponential to estimate the second order rate of ATP induced detachment. So, for using the simulator for application validation, modeling this as a single exponential allows us to observe the ability to extract a single exponential rate from the simulation. Perhaps then this is better to think of this parameter as the rate of the backwards ensemble.
+
+**Time off**: Modeled as a single exponential. This is the time between events, or attachment rate, modeled as a single exponential. You can pick the rate. Usually 1 per second in the trap. Recommended to limit the maximum time to avoid very long off times in simulations to keep files sizes shorter. Also, recommended to truncate so you don't get very short off times.
+ 
+ 
+  
+## Notes
+
+Please note, some of the sliders that allow to truncate the distributions update reactively depending on the rate supplied. Sometimes after you change the rate, you need to close the options window and re-open it to have the app refresh the slider ranges.
 
 
+
+## tl;dr
+
+Just show me a video...
+
+<video width="800" height="400" controls>
+  <source src="images/simulate.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
