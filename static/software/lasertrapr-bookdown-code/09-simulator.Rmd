@@ -1,0 +1,33 @@
+# Simulator
+
+*lasertrapr* has a built-in data simulator that will write *lasertrapr* friendly data sets into your *lasertrapr* data folder. First create a new project, conditions, and date folders. For the "project" and "conditions" folders, they must have "simulation" somewhere in the project name and condition name or else the application will not save data into those folders. 
+
+This is taken as a precaution. The app is preventing you from doing something you should not do. DO NOT SIMULATE DATA INTO A REAL PROJECT OR CONDITION FOLDER. It also prevents accidents from occuring (forgetting to switch projects/conditions before simulating).
+
+## Monte carlo myosin simulations
+
+The simulator generates "raw" optical trapping datasets that qualitivaly look like the traces you would get from a singl molecule optical trapping experiments with a 1 QPD setup. The simulator uses a monte carlo style simulation to quantitavely reflect the underlying model, which is based on the mechanochemical scheme of myosin interactin with actin:
+
+- M.ATP/M.ADP.Pi (one detached state)
+- Attachment into AM.ADP.Pi or AM.ADP (decrease in variance)
+- Mechanical displacement (SUBSTEP 1)
+- ADP release 
+- Mechanical displacement (SUBSTEP 2)
+- AM (rigor)
+- Detach/Restart, that is one "event"
+
+The simulator only progresses forward through the cycle (there are no possibilites of reversals) and the simulation has no load dependent processees. The rates of the biochemical steps are set by the user and sampled by the simuluator from exponential distributions that you can truncate to avoid extremely slow or fast reaction times. Users can set characteristics of the baseline noise and event population signal-to-noise ratio and magnitude of the displacement distribution. Optionally, users can enter a second substep that represents "the hitch" that most myosins have been shown to have.
+
+## Simulate Data
+
+To simulate data, create a new project folder with "simulation" in the name. Create a new condition folder with "simulation" in the name. Make a date folder. The app will create the observation folders for you. 
+
+Expand the "Simulate Data" box within the "Upload Data" tab. The grey box on the left lists all the parameters that the user can change about the simulation. Click on options to pop open a dialogue box that will allow you to change these parameters. 
+
+**BASELINE**: Characterizes the mean position and sd/variance of the baseline population. Most likely, you will leave this as-is. You can change the SD/variance to simulate a stiffer or looser trap. SD = 8 is qualitivately similar to the experimental data I would record on the UMass trap in Totman B29 when I was a grad student working with a ~0.04 pN/nm trap stifness. Therefore, that has historically been the default.
+
+**Displacements**: This allows you to select the mean and SD/variance of the baseline population. The mean value will be the size of your initial 'powerstroke'. Brownian captures will occur in these simulations as the SD is also set to 8, which is the same value as the baseline SD. You should set the displacement SD to be equal to baseline SD for reasons that Justin Molloy details in his 1994 papers. If you do not want to simulate brownian captures and want every displacement to be the same absolute value, set the SD to 0. 
+
+**Pi 
+
+

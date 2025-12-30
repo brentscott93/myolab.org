@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Upload Data | Documentation for {lasertrapr}</title>
+  <title>Chapter 8 Calibrations | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Upload Data | Documentation for {lasertrapr}" />
+  <meta property="og:title" content="Chapter 8 Calibrations | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Documentation for using the lasertrapr app" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Upload Data | Documentation for {lasertrapr}" />
+  <meta name="twitter:title" content="Chapter 8 Calibrations | Documentation for {lasertrapr}" />
   
   <meta name="twitter:description" content="Documentation for using the lasertrapr app" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="clean-and-process.html"/>
+<link rel="prev" href="figures.html"/>
+<link rel="next" href="simulator.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -251,61 +251,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="upload" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Upload Data<a href="upload.html#upload" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="the-lasertrapr-folder" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> The ~/lasertrapr/ folder<a href="upload.html#the-lasertrapr-folder" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <strong>{lasertrapr}</strong> app offers more than just the analysis of single laser trap data traces, but the application also serves as an <em>opinionated data management</em> tool. The app forces users to adopt a specific directory tree structure. All data can be organized into specific <strong>project</strong>, <strong>conditions</strong>, <strong>date</strong>, and <strong>observation</strong> folders. Additionally, this structure can be leveraged in the post-analysis stage to easily handle statistical analyses and auto-generation of plots for quick summary features provided by the app. Upon initial launch of the app, a <em>lasertrapr</em> folder will be created under <code>~/lasertrapr</code>. The exact location of the folder will vary depending on OS, but you can get the exact location by running <code>path.expand("~/lasertrapr")</code> in the R-console. All of your data and analyses will be created and saved within this folder.</p>
-<p>The app will take any uploaded data and copy it into an <strong>observation</strong> folder. When I first started trapping, it was hard to get any data at all, and if I did get data, I would only record one trace per mogul (pedestal bead). So, I thought of this as one “observation” equating to data from one specific mogul. However, as I got better I started to collect multiple data traces on a single mogul so the terminology “observation” is more synonymous with “data trace” than with a given mogul. Most likely, you will end up with more than one “obs” folder for a mogul. For this reason, when uploading data, the app will save the original filenames in the folder for reference if needed.</p>
-<p>The data you get, or observe, in a trace would have been collected on a specific day (date) under specific solution conditions (ionic strength, pH, mutations, etc.) and would belong to one bigger project. This logic provides the basis for the data management provided by the app. <strong>The project, conditions, and date folders must exist in order for data to be uploaded.</strong> The app will automatically create the observation folders when data is uploaded. You must first create the project, conditions, and date folders via the Folder Manager.</p>
+<div id="calibrations" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Calibrations<a href="calibrations.html#calibrations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There are two “offline” calibrations analyzers in <em>lasertrapr</em>. They are conse lidered “offline” because they are used to calculate the calibration factors after a trapping session, not during data collection/analysis, and they cannot integrate into the actual trapping system. To use these analyzers, you must perform the calibration routine, save, and export data from your optical trapping system. Then upload the data into <em>lasertrapr</em>.</p>
+<div id="step-calibration" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Step Calibration<a href="calibrations.html#step-calibration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you are using a quadrant photo detector (QPD) on your optical trap, the raw data you are collecting is a voltage signal. For this data to be meaningful, you need to turn the voltage signal into distance units. To do this, you can use the “Step Calibration”: Stick a microsphere on or under a nitrocellulose surface and then place the bead within the linear range of the QPD. Move the stage a known distance (e.g. 50 nanometers). There will be a relative voltage change in this signal. Save the data segment that has the relative shift.</p>
+<p>Upload this data into <em>lasertrapr</em> as a plain text format file (csv/txt) into the “Step Calibration” calculator within “Upload Data” tab. The calculator will extract the data in the first column. Input the distance you moved the stage. Click the button. The calculator will identify the displacement with a single changepoint algorithm and calculate the average position of the two segments. It will then return a volts-to-nanometer conversion factor.</p>
+<p>The calculation is simple. If you move something a known distance (e.g. 50 nm), and the signal changed from -1 to +2 volts, there is a 3 volts to 50 nm ratio (e.g. 16.6 nm per volt). You can now use this value to convert your other data from volts to nanometers.</p>
 </div>
-<div id="create-folders" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Create Folders<a href="upload.html#create-folders" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Located in the top right of the app is the <strong>Folder Manager</strong>. Click to open the menu (there is a known bug that when opening menu for first time some of the menu is cut off, you can click outside menu to close, and just re-opening will fix this menu display). Click the dropdown and either select your specific project folder or select “Create New…” to create a new folder. I would recommend avoiding using spaces in the folder names. The prefix “project_” will be appended to the beginning of whatever name you choose for the project. Continue to create folders in the same way for the conditions and date.</p>
-<p>In lieu of using spaces, users are encouraged to use “-” and “under_score” in your conditions naming conventions. I prefer to use a combination of both. I use a “-” as a space <em>within</em> a given variable name and “under_score” as a space separator <em>between</em> distinct variables in the conditions. For instance, if I collected data with a wild-type myosin (WT) at pH 7.0 and 30mM P<sub>i</sub> my conditions would be “WT_pH-7.0_30mM-Pi”. The app will add a “conditions” column to all the uploaded trapping data to ID each observation from one another (along with columns for the project, date, and observation info). The benefit of having a standard naming convention and knowing what the roles of the special space separators will allow for more flexibility and robust analysis later on. For example, eventually the conditions column can be separated into <em>many</em> variable columns easily in the post-analysis by knowing that variables are separated by “under_score”. It doesn’t matter what you use, just be consistent.</p>
-</div>
-<div id="load-data" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Load Data<a href="upload.html#load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="simple-upload" class="section level3 hasAnchor" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Simple Upload<a href="upload.html#simple-upload" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A simple upload means the user has a complete file of trap data. One file = one complete record.</p>
-<p>Any regular delimited file type can be loaded into the app (thanks to <code>fread()</code> from {data.table}). Currently, you can upload one or two bead/detector datasets. If you have a one signal dataset without a header, <strong>the first column in the data file will automatically be chosen as the trap data</strong>. The app will make a copy of the data and re-format the data to be compatible. Uploading a dataset to the app will create an “obs-##” folder inside the currently selected date folder. The data will be saved within the date folder as a new “obs-##” folder and the data itself is saved in a file called “trap-data.csv”. This last detail is purely informative. One of the benefit of using the app is not worrying about file management. You technically will never need to look inside the files created by the app, but it is still nice to know how it works and where to find things. This can also be useful for troubleshooting.</p>
-<p>Multiple files can be uploaded at once too. Each file will be treated as a new observation. If three files are uploaded, then the folders “obs-01”,“obs-02”, and “obs-03” will be created within the selected date folder and “trap-data.csv” files will be initialized from the uploaded data within the respective observation folders.</p>
-<p>If you are uploading simulated data or data that has already been processed you can check the “Ready for Analysis?” box which will let you enter a trap stiffness (pN/nm) value and assumes you don’t need to convert data from mV to nm (the app will use a value of 1 for the mV to nm conversion during subsequent analysis). This allows users to skip the “Clean &amp; Process” section of the app since the data will be ready for analysis once the data is initialized.</p>
-</div>
-<div id="advanced-upload" class="section level3 hasAnchor" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Advanced Upload<a href="upload.html#advanced-upload" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If you are uploading multi-channel data or have a custom file header with all the system’s calibration information, you can also upload these files types. This would be the case for data coming from the Greenberg trap where I did my postdoc. The trap data in X and Y from the two QPDs is preceded by a 68 line header with various calibrations and information about the current state of the system.</p>
-<p>To upload these types of dataset, select “Number of Channels” for how many detectors your system has.</p>
-<p>If there is a header in your data, check “Cal in header?” This will display a series of value boxes to fill out. The default values in these boxes are values that work with the trap data from the Greenberg lab’s trap. If you are using Greenberg lab data, you can just hit upload since everything is pre-filled.</p>
-<p>Fill in the boxes with the <strong>LINE NUMBERS</strong> that correspond to your specific header file. Looking at the example, the “Hz” box has a value of 15. This means the sampling frequency information is on line 15 of the header.</p>
-<p>Header Size: The number of lines in the header. The app will save the header in a separate file called “header.csv”.</p>
-<p>Hz: sampling frequency. Enter the line number where this is found in the header. Not the actual value.</p>
-<p>nm/V and pN/nm: calibration numbers. Enter the line number where this is found in the header. Not the actual values.</p>
-<p>Feedback motor bead: value should be 1 or 2 denoting which trap was the motor bead when performing the isometric force clamp experiment. If not applicable, just put 1.</p>
-<p>Trap 1/2 Col: The column numbers where the actual data are after the header. Default is 1, 3 which means that the 1st and 3rd column have the data in the X dimensions recorded by the QPD.</p>
-</div>
-<div id="lumicks" class="section level3 hasAnchor" number="2.3.3">
-<h3><span class="header-section-number">2.3.3</span> Lumicks<a href="upload.html#lumicks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>You can upload Lumicks H5 data files into the app as well. Just select the Lumicks tab and browse for the H5 files. Currently, this will only extract the high frequency Trap1X and Trap2X data. This is sampled at ~78 kHz, so you will most likely want to downsample this. Input the factor number you want to downsample by (e.g. 2 would mean to downsample by a factor of 2, cutting the number of datapoints in half).</p>
-<p>You can also include the position of the stage by checking the box.</p>
-</div>
-<div id="split-observations" class="section level3 hasAnchor" number="2.3.4">
-<h3><span class="header-section-number">2.3.4</span> Split Observations<a href="upload.html#split-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This is a special use case for the Debold Lab. The trapping computer saves a separate .txt file for every 5-seconds of data collected. All .txt files from a given conditions/date combination can be uploaded at once and the app will read the time-stamps and concatenate corresponding observation files together based upon the user selected time threshold which is in seconds. I would use 10 seconds.</p>
-</div>
-<div id="need-more-options" class="section level3 hasAnchor" number="2.3.5">
-<h3><span class="header-section-number">2.3.5</span> Need more options?<a href="upload.html#need-more-options" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Just email me or raise an issue on GitHub to discuss support for you specific data you want to upload.</p>
-</div>
-</div>
-<div id="tldr" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> tl;dr<a href="upload.html#tldr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Just show me a video…</p>
-<video width="800" height="400" controls>
-<source src="images/upload.mp4" type="video/mp4">
-<p>Your browser does not support the video tag.
-</video></p>
+<div id="equipartition" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Equipartition<a href="calibrations.html#equipartition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you want to measure forces in an optical trap, you need to perform additional calibrations to convert your data from nanometers to volts. This can be done via the Equipartition Method, which uses the variance of a baseline trapping signal to quantify stiffness (piconewtons/nanometer). On your optical trap, trap a microsphere, and save a few seconds of baseline data. Upload this data as a plain text file (csv/txt) into the “Equipartition” calculator under the “Upload Data” tab. The calculator data will automatically select the first column of data to use for the analysis. Click the button. The analyzer will calculate the variance of the trapping trace and perform the Equipartition calculation and output a stiffness value in pN/nm that can be used for further analysis of your data.</p>
 
 </div>
 </div>
@@ -314,8 +271,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="clean-and-process.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="figures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simulator.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
