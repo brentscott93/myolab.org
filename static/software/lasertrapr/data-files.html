@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Documentation for {lasertrapr}</title>
+  <title>Chapter 11 Data Files | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Documentation for {lasertrapr}" />
+  <meta property="og:title" content="Chapter 11 Data Files | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Documentation for using the lasertrapr app" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Documentation for {lasertrapr}" />
+  <meta name="twitter:title" content="Chapter 11 Data Files | Documentation for {lasertrapr}" />
   
   <meta name="twitter:description" content="Documentation for using the lasertrapr app" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="tips-troubleshooting.html"/>
 
-<link rel="next" href="upload.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -288,39 +288,153 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Documentation for <strong>{lasertrapr}</strong></h1>
-<p class="author"><em>Brent Scott</em></p>
-<p class="date"><em>2025-12-31</em></p>
+<div id="data-files" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Data Files<a href="data-files.html#data-files" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The organization of a lasertrapr project folder is: LASERTRAPR -&gt; PROJECT -&gt; CONDITIONS -&gt; DATE -&gt; OBS</p>
+<p>The application picks the location of the lasertrapr for you and this cannot be moved. The app automatically saves data and configuration files in specific location. The following are descriptions of the types of files that can be found within your lasertrapr folder. All files are plain text (.csv) files that can be opened in any text editor or read into R/python/etc easily.</p>
+<div id="observation-folder-files" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Observation folder files<a href="data-files.html#observation-folder-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are several files you will find within an observation folder:</p>
+<div id="trap-data.csv" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> trap-data.csv<a href="data-files.html#trap-data.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When you upload your trapping data traces, the files are copied and saved into a new “obs-##” folder. The actual raw data is saved in a filed called “trap-data.csv”. Column descriptions:</p>
+<p>The project, conditions, date, and obs folders are legacy columns from early versions of the app.</p>
+<p><strong>raw_bead</strong>: the exact data from the uploaded file, copied verbatim. For 2-channel datasets, you will have <code>raw_bead_1</code> and <code>raw_bead_2</code>. This is typically your data in volts, but for Lumicks data, they supply their data in pN, so the <code>raw_data</code> columns is in pN for Lumicks data.</p>
+<p><strong>trap_position</strong>: This column is special to data uploaded from the Muscle Biophysics Lab at UMass Amherst for their custom uploader. This is the position of the AOD. The value will be 0 for non-feedback experiments.</p>
+<p><strong>processed_bead</strong>: This is the results of the <code>raw_data</code> after being “processed” by the “Clean &amp; Process” tab. This is the data that is used by the analyzers. Note for 2 channel data, you will have <code>processed_bead_1</code> and <code>processed_bead_2</code>.</p>
+<p><strong>rescaled_mini_data</strong>: Mini-ensemble data only. This is the <code>processed_bead</code> data that has had the baseline+event micro-baseline corrections applied during the mini-ensemble analysis. Therefore, the data has been “rescaled”.</p>
+<p><strong>run_mean_overlay</strong>: Mini-ensemble data only. This is the calculated running mean of the rescaled mini data.</p>
+<p><strong>aod_position</strong>: Greenberg lab data only.</p>
+<p><strong>feedback_filter_position</strong>: Greenberg lab data only</p>
 </div>
-<div id="getting-started" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Getting Started<a href="index.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>{lasertrapr}</strong> is an R-package/Shiny application built using the <a href="https://golemverse.org/"><code>{golem}</code></a> framework for automating the analysis of laser trap data. Please note that the app is currently still under development. Users should proceed with caution.</p>
-<p><em>NOTE: an R-package is denoted by the <code>{}</code> braces</em></p>
-<div id="install-r-rstudio" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Install R &amp; RStudio<a href="index.html#install-r-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Currently, <strong>{lasertrapr}</strong> can only be launched from an active R-session. Before you begin you will need to <a href="https://cloud.r-project.org/">download and install R</a> and optionally <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>. Both of these are free. RStudio is an IDE (integrated development environment) and is not 100% necessary but is recommended if you are new to R. Follow the instructions on the respective websites to complete installation.</p>
-<p>Additionally, you will need to install the <a href="https://r-pkgs.org/setup.html#setup-tools">R build toolchain</a>. This allows a user to build an R-package from source on their own computer which is necessary to build this application since it is an R package. The link provides directions on how to do this on Windows, Mac, and Linux.</p>
+<div id="measured-events.csv-1" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> measured-events.csv<a href="data-files.html#measured-events.csv-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>These “measured-events” files save the output of the analyzers. Each row is one event and columns are variables describing different aspects of the event:</p>
+<p><strong>displacement_nm</strong>: the displacement of the event in nanometers. Relative measurement for HM/CP based analyzers, absolute measurement for the mini analyzer. For IFC data, this is the displacement of the motor bead.</p>
+<p><strong>absolute_displacements_nm</strong>: IFC only. Absolute force displacement position. Traces are usually not “Zero’d”.</p>
+<p><strong>baseline_position_prior_nm</strong>*: IFC only. the mean baseline position for a few milliseconds before the start of the event. Used to make a relative displacement calculation (what is reported as <code>displacement_nm</code>).</p>
+<p><strong>force_pn</strong>. Or just “force” for files generated by older versions of the app. This is the force in piconewtons calculated by multiplying <code>displacement_nm</code> by <code>nm2pn</code>.</p>
+<p><strong>time_on_ms</strong>. The total attachment duration in milliseconds. Fitting these rates gives a detachment rate for the specific conditions the data collected under.</p>
+<p><strong>time_on_s</strong>: IFC only. Time on in seconds.</p>
+<p><strong>time_off_ms</strong>. The baseline duration before the event in milliseconds. The first event is always NA because there is no previous event to determine the “time between events”. Fitting these values gives an apparent attachment rate.</p>
+<p><strong>analyzer</strong>: reporting what analyzer generated this file.</p>
+<p><strong>index</strong>: event number</p>
+<p><strong>hmm_state</strong>: HM-Model only, should be 2.</p>
+<p><strong>num_windows</strong>: the attachment duration in window width length.</p>
+<p><strong>length_hz</strong>: crude conversion between the number of windows and hz in datapoints. A crude estimate of time on. Not recommended to use.</p>
+<p><strong>start</strong>: HM/CP models only. The start in datapoints of the event identified by the changepoint algorithm.</p>
+<p><strong>stop</strong>: HM/CP models only. The stop in datapoints of the event identified by the changepoint algorithm.</p>
+<p><strong>cp_found_start</strong>: TRUE/FALSE indicating if the changepoint analysis was successful in running at the start of the event.</p>
+<p><strong>cp_found_stop</strong>: TRUE/FALSE indicating if the changepoint analysis was successful in running at the stop of the event.</p>
+<p><strong>is_positive</strong>: HM/CP models only. Whether the event is positive (TRUE) or not (FALSE).</p>
+<p><strong>keep</strong>: analyzers decision on whether to keep/trust this measurement. TRUE/FALSE.</p>
+<p><strong>cp_displacements</strong>: HM/CP only. Analyzers first estimate displacement, force, time on, time off from the HM model/running window data only before applying the changepoint and re-measuring these parameters. The changepoint measurements are better and then overwrite the results of the HM Model estimates. So this should be the same as <code>displacement_nm</code>.</p>
+<p><strong>cp_forces</strong>: should be same as <code>force_pn</code>. Same as above.</p>
+<p><strong>trap_stiffness</strong>: Equipartition value of the baseline noise before the event. Note, this is calculated on a pre-tensed filament so is a “system” stiffness not necessarily trap stiffness.</p>
+<p><strong>myo_stiffness</strong>: Equipartition value of the whole changepoint identified event. Attempt to quantify the stiffness of the binding duration. Perhaps a relative change calculation could be more meaningful between the <code>trap_stiffness</code> and <code>myo_stiffness</code> due to effects of pre-tension on these metrics.</p>
+<p><strong>front_signal_ratio</strong>: not really used for anything. The signal to noise ratio of the events compared to the baseline before for the start of the event.</p>
+<p><strong>back_signal_ratio</strong>: not really used for anything. The signal to noise ratio of the events compared to the baseline before for the end of the event.</p>
+<p><strong>cp_time_on_dp</strong>: changepoint measurement of the attachment duration in datapoints.</p>
+<p><strong>cp_time_on_ms</strong>: the <code>cp_time_on_dp</code> divided by <code>hz</code>/1000 to get time on in milliseconds. should be the same as <code>time_on_ms</code>.</p>
+<p><strong>hm_event_start</strong>: the data point estimation of the start of the event from the HM-Model running window data.</p>
+<p><strong>hm_event_stop</strong>: the data point estimation of the start of the event from the HM-Model running window data.</p>
+<p><strong>cp_event_start_dp</strong>. HM/CP models only. A better named <code>start</code> column indicating its from the changepoint analysis and the units are datapoints. Same as <code>start</code></p>
+<p><strong>cp_event_stop_dp</strong>. HM/CP models only. A better named <code>stop</code> column indicating its from the changepoint analysis and the units are datapoints. Same as <code>stop</code>.</p>
+<p><strong>conversion</strong>: an estimate conversion factor between running window time and real time.</p>
+<p><strong>peak_nm_index</strong>: For HM/CP models - the time in seconds at which the peak displacement is calculated for displacement method = “peak”. For methods = “avg”, it is an estimated time of the events running window that has the greatest value. For method = “avg” this is not particularly useful for any other analysis except the app uses it to place the displacement markers in the analyzed traces over the events. For mini-ensemble, this the peak displacement in datapoints.</p>
+<p><strong>mid_point_index_dp</strong>: IFC only. Similar to peak_nm_index. Used to put the displacement marker in the middle of the event during analyzer visualization.</p>
+<p><strong>event_user_excluded</strong>. TRUE/FALSE. Did the user manually exclude this event? FALSE means keep in further analysis. TRUE means user does not want event, filter it out.</p>
 </div>
-<div id="download-lasertrapr" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Download <strong>{lasertrapr}</strong><a href="index.html#download-lasertrapr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Open R/RStudio on your computer.</p>
-<p>For users that want the latest developmental version, users who are reviewing, or users who want to contribute you can install the latest from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># i.e. &quot;developer tools&quot;</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(devtools) <span class="co"># loads the package</span></span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;brentscott93/lasertrapr&quot;</span>) <span class="co"># downloads lasertraor from github</span></span></code></pre></div>
-<p>You can download and older “stable” version from 2022 from my <em>drat</em> repository on Github with the following code. Copy/paste the following into the R-Console or into an R-Script to run:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;drat&quot;</span>) <span class="co"># installs drat package</span></span>
-<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a>drat<span class="sc">::</span><span class="fu">addRepo</span>(<span class="st">&quot;brentscott93&quot;</span>) <span class="co"># adds my drat repo</span></span>
-<span id="cb2-3"><a href="index.html#cb2-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;lasertrapr&quot;</span>) <span class="co"># installs the lasertrapr package</span></span></code></pre></div>
-<p>Both {devtools} and {lasertrapr} will need to install dependencies. Update and install all the packages that they want when prompted. Alternatively you can install {devtools} from within the RStudio IDE by navigating to the “Packages” tab in the lower right box and clicking “Install”.</p>
+<div id="hm-model-data.csv" class="section level3 hasAnchor" number="11.1.3">
+<h3><span class="header-section-number">11.1.3</span> hm-model-data.csv<a href="data-files.html#hm-model-data.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is data related to the running window transformation and HM-Model for those analyzers.</p>
+<p><strong>run_mean</strong>: the running mean signal.</p>
+<p><strong>run_var</strong>: the running variance signal.</p>
+<p><strong>state</strong>: 1 or 2 indicating HM-Model state classification.</p>
+<p><strong>index</strong>: window number.</p>
+<p><strong>var_signal_ratio</strong>: the same number for every window. the approximate “signal to noise ratio” of the variance dimension. The HM-Model estimates the distribution of the underlying states this is a ratio between the state 1 vs state 2 variance.</p>
 </div>
-<div id="launch-the-app" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Launch the App<a href="index.html#launch-the-app" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Once your have successfully installed and built the <code>{lasertrapr}</code> package, you are ready for launch:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(lasertrapr) <span class="co"># load the package and its dependencies</span></span>
-<span id="cb3-2"><a href="index.html#cb3-2" tabindex="-1"></a><span class="fu">run_app</span>() <span class="co"># this will launch the app GUI in your default web browser</span></span></code></pre></div>
-<p>Once the initial setup and installation is complete, the above two lines is the only code that will need to be run each time you want to use the app. You can update to the current developers version anytime by re-running <code>install.packages("lasertrapr")</code> or <code>devtools::install_gitub("brentscott93/lasertrapr")</code>.</p>
+<div id="event-frequency.csv" class="section level3 hasAnchor" number="11.1.4">
+<h3><span class="header-section-number">11.1.4</span> event-frequency.csv<a href="data-files.html#event-frequency.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Results of the event frequency analysis.</p>
+<p><strong>seconds</strong>: the one second interval. 1 = first second interval, 2 = second second interval etc.</p>
+<p><strong>begin</strong>: datapoint at which the second interval begins</p>
+<p><strong>end</strong>: the datapoint at which the second interval ends</p>
+<p><strong>freq_start</strong>: the number of events whose changepoint identified start occurred within that one second interval.</p>
+</div>
+<div id="ensemble-data.csv" class="section level3 hasAnchor" number="11.1.5">
+<h3><span class="header-section-number">11.1.5</span> ensemble-data.csv<a href="data-files.html#ensemble-data.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Results of the “Prep Ensemble” button. For internal use by the app.</p>
+</div>
+<div id="substeps.csv" class="section level3 hasAnchor" number="11.1.6">
+<h3><span class="header-section-number">11.1.6</span> substeps.csv<a href="data-files.html#substeps.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Analysis of the substeps that occurs during the ensemble averaging procedure.</p>
+</div>
+<div id="options.csv" class="section level3 hasAnchor" number="11.1.7">
+<h3><span class="header-section-number">11.1.7</span> options.csv<a href="data-files.html#options.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This file is used as a configuration / settings file for the app to automatically find / filter / keep track of certain user inputs.</p>
+<p><strong>hz</strong>: sampling frequency</p>
+<p><strong>processor</strong>: modification applied to the <code>raw_bead</code> signal to transform into <code>processed_bead</code>. Options are “none”, “remove_base”, “remove_mv”, and “detrend”.</p>
+<p><strong>include</strong>: TRUE/FALSE depending on whether user selected Include “Yes” or “No” in “Clean and Process” tab.</p>
+<p><strong>mv2nm</strong>: the millivolt to nanometer conversion factor.</p>
+<p><strong>mv2nm2</strong>: for 2 channel data sets, the volt to nanometer conversion for the second bead.</p>
+<p><strong>nm2pn</strong>: the nanometer to piconewton conversion</p>
+<p><strong>nm2pn2</strong>: for 2 channel data set, the nanometer to piconewton conversion for the second bead.</p>
+<p><strong>analyzer</strong>: which analyzer was used. Options are “hm/cp”, “covar”, “force_balance”, “mini”, or “ifc”.</p>
+<p><strong>report</strong>: throughout different analyses a “report” note is generated to detail if the analysis was successful or failed somewhere. If report = “success”, the analysis finished correctly. If other value, the trace was not completely analyzed.</p>
+<p><strong>review</strong>: TRUE/FALSE depending whether user clicked “Yes” or “No” in the review box of the “Analyzer” tab of the question “Should analysis be accepted?”</p>
+<p><strong>channels</strong>: the number of channels in the data. 1 or 2.</p>
+<p><strong>w_width</strong>: HM-models only. the user selected window width in datapoints.</p>
+<p><strong>w_slide</strong>: HM-models only. The user selected window advancement method.</p>
+<p><strong>em_random_start</strong>: HM-models only. TRUE/FALSE depending if the user selected EM Random Start.</p>
+<p><strong>use_channels</strong>: HM-Models only. “Mean/Var” or “Var” depending on whether the user selected to use the mean and variance dimensions for the HM-Model or just the variance.</p>
+<p><strong>front_cp_method</strong>: HM/CP models only. The user selected method for applying the changepoint. “Mean/Var” or “Var”.</p>
+<p><strong>back_cp_method</strong>: HM/CP models only. The user selected method for applying the changepoint. “Mean/Var” or “Var”.</p>
+<p><strong>cp_running_var_window</strong>: HM/CP models only. the user selected window width for applying the running variance window. The “Mean/Var” option uses the raw data, this options does not apply.</p>
+<p><strong>displacement_type</strong>: HM/CP models only. the user selected displacement measurement type. Options are “avg” or “peak”.</p>
+<p><strong>status</strong>: Whether the observation has been analyzed or not. Value of “analyzed” means it has been sent through an analyzer.</p>
+<p><strong>w_width_ms</strong>: mini ensemble only, the user chosen window width in milliseconds.</p>
+<p><strong>displacement_threshold</strong>: mini ensemble only. the user selected displacement threshold</p>
+<p><strong>time_threshold_ms</strong>: mini ensemble only. the user selected minimum time threshold.</p>
+<p><strong>feedback_motor_bead</strong>: only used for IFC data. The channel that is the motor bead. 1 or 2.</p>
+<p><strong>preferred_channel</strong>: for 2 channel data. the user selected preferred channel to be used for certain analyses.</p>
+<p><strong>lab</strong>: The lab that the data came from. Options are “unknown”, “greenberg”, “debold”, or “lumicks”.</p>
+<p><strong>original_filename</strong>: the original filename that the trap data was uploaded from.</p>
+</div>
+<div id="header.csv" class="section level3 hasAnchor" number="11.1.8">
+<h3><span class="header-section-number">11.1.8</span> header.csv<a href="data-files.html#header.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If “header” option was selected during data upload, the values are extracted and stored her verbtim along with the app putting those values where it wants in options.csv etc. This is more of a preservation file.</p>
+<p>Columns are V1 and V2 which represent KEY-VALUE pair of the header, which should be in KEY-VALUE format to be properly read and parsed.</p>
+</div>
+</div>
+<div id="summary-folder-files" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Summary folder files<a href="data-files.html#summary-folder-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The summary folder is created in project -&gt; summary when the “summarize” button is first hit.</p>
+<p>The files in the summary folder will vary on type of analysis. The most important one will be the one that ends in “*_all-measured-events.csv”.</p>
+<div id="all-measured-events.csv" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> all-measured-events.csv<a href="data-files.html#all-measured-events.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is one file that has all of the “measured-events.csv” files combined into one csv file. Note, this is the results of the R function <code>rbind_measured_events()</code> supplied by the lasertrapr R package. It finds and reads all relevant files and applies appropriate filters to only include data that you want to include and filters out events you excluded. The columns are all described in “measured-events.csv” above and depend on the specific analyzer used.</p>
+</div>
+<div id="summary-data.csv" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> summary-data.csv<a href="data-files.html#summary-data.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An csv file with selected pre-calculated averages of <code>all-measured-events.csv</code>. Recommended you calculate these values yourself for double checking.</p>
+</div>
+<div id="ensemble-average-models.txt" class="section level3 hasAnchor" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> ensemble-average-models.txt<a href="data-files.html#ensemble-average-models.txt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Fitted model output of the exponential fitting of the ensemble averages. Verbatim R output.</p>
+</div>
+<div id="ensemble-average-parameters.csv" class="section level3 hasAnchor" number="11.2.4">
+<h3><span class="header-section-number">11.2.4</span> ensemble-average-parameters.csv<a href="data-files.html#ensemble-average-parameters.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A tidy output of the exponential fitting parameters of the ensemble averages.</p>
+</div>
+<div id="ensemble-average-substeps.csv" class="section level3 hasAnchor" number="11.2.5">
+<h3><span class="header-section-number">11.2.5</span> ensemble-average-substeps.csv<a href="data-files.html#ensemble-average-substeps.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A combined all substeps.csv from all the events included in the ensemble average.</p>
+</div>
+</div>
+<div id="summaryfigures-folder" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Summary/figures folder<a href="data-files.html#summaryfigures-folder" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The app will create a summary -&gt; figures folder. When using the “snapshot” button, the figures are saved here. Ensemble average RDS plot file figres are also saved here.</p>
 
 </div>
 </div>
@@ -329,8 +443,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="tips-troubleshooting.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="upload.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

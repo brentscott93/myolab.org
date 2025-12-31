@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Documentation for {lasertrapr}</title>
+  <title>Chapter 10 Tips &amp; Troubleshooting | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Documentation for {lasertrapr}" />
+  <meta property="og:title" content="Chapter 10 Tips &amp; Troubleshooting | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Documentation for using the lasertrapr app" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Documentation for {lasertrapr}" />
+  <meta name="twitter:title" content="Chapter 10 Tips &amp; Troubleshooting | Documentation for {lasertrapr}" />
   
   <meta name="twitter:description" content="Documentation for using the lasertrapr app" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="upload.html"/>
+<link rel="prev" href="simulator.html"/>
+<link rel="next" href="data-files.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -288,39 +288,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Documentation for <strong>{lasertrapr}</strong></h1>
-<p class="author"><em>Brent Scott</em></p>
-<p class="date"><em>2025-12-31</em></p>
+<div id="tips-troubleshooting" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Tips &amp; Troubleshooting<a href="tips-troubleshooting.html#tips-troubleshooting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Below are some quirks with the program mixed with tips about things to note or be careful of when using the app or data generated from it.</p>
+<p>Please feel free to add known problems, issues, or workarounds here. You can email me or clone this repo and edit the markdown source at “<a href="https://github.com/brentscott93/myolab.org/blob/master/static/software/lasertrapr-bookdown-code/10-issues.Rmd" class="uri">https://github.com/brentscott93/myolab.org/blob/master/static/software/lasertrapr-bookdown-code/10-issues.Rmd</a>” and open a pull-request so that I can merge and rebuild.</p>
+<div id="folder-manager-window" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Folder manager window<a href="tips-troubleshooting.html#folder-manager-window" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The folder manager opens up off the partially off the screen after restart. Just close and re-open and it is fixed. Does not effect performance. Low priority.</p>
 </div>
-<div id="getting-started" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Getting Started<a href="index.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>{lasertrapr}</strong> is an R-package/Shiny application built using the <a href="https://golemverse.org/"><code>{golem}</code></a> framework for automating the analysis of laser trap data. Please note that the app is currently still under development. Users should proceed with caution.</p>
-<p><em>NOTE: an R-package is denoted by the <code>{}</code> braces</em></p>
-<div id="install-r-rstudio" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Install R &amp; RStudio<a href="index.html#install-r-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Currently, <strong>{lasertrapr}</strong> can only be launched from an active R-session. Before you begin you will need to <a href="https://cloud.r-project.org/">download and install R</a> and optionally <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>. Both of these are free. RStudio is an IDE (integrated development environment) and is not 100% necessary but is recommended if you are new to R. Follow the instructions on the respective websites to complete installation.</p>
-<p>Additionally, you will need to install the <a href="https://r-pkgs.org/setup.html#setup-tools">R build toolchain</a>. This allows a user to build an R-package from source on their own computer which is necessary to build this application since it is an R package. The link provides directions on how to do this on Windows, Mac, and Linux.</p>
+<div id="simulator-slider-ranges" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Simulator slider ranges<a href="tips-troubleshooting.html#simulator-slider-ranges" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>After changing the rates of an exponential the range sliders do not update to the new min/max values. Close the options and re-open for them to refresh. Does not effect performance. Low priority.</p>
 </div>
-<div id="download-lasertrapr" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Download <strong>{lasertrapr}</strong><a href="index.html#download-lasertrapr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Open R/RStudio on your computer.</p>
-<p>For users that want the latest developmental version, users who are reviewing, or users who want to contribute you can install the latest from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># i.e. &quot;developer tools&quot;</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(devtools) <span class="co"># loads the package</span></span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;brentscott93/lasertrapr&quot;</span>) <span class="co"># downloads lasertraor from github</span></span></code></pre></div>
-<p>You can download and older “stable” version from 2022 from my <em>drat</em> repository on Github with the following code. Copy/paste the following into the R-Console or into an R-Script to run:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;drat&quot;</span>) <span class="co"># installs drat package</span></span>
-<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a>drat<span class="sc">::</span><span class="fu">addRepo</span>(<span class="st">&quot;brentscott93&quot;</span>) <span class="co"># adds my drat repo</span></span>
-<span id="cb2-3"><a href="index.html#cb2-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;lasertrapr&quot;</span>) <span class="co"># installs the lasertrapr package</span></span></code></pre></div>
-<p>Both {devtools} and {lasertrapr} will need to install dependencies. Update and install all the packages that they want when prompted. Alternatively you can install {devtools} from within the RStudio IDE by navigating to the “Packages” tab in the lower right box and clicking “Install”.</p>
+<div id="measured-events.csv" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> measured-events.csv<a href="tips-troubleshooting.html#measured-events.csv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Be careful when manually working with your “measured-events.csv” files. The app never deletes data but uses different filtering strategies in combination of options.csv to select the data you mark as useable throughout interacting with the app. Clean &amp; Process, include == TRUE. Analysis tab, review == TRUE. Excluding events, user_event_excluded == FALSE.</p>
+<p>The lasertrapr R package provided a function <code>rbind_measured_function()</code> that will read-in all data and apply the correct filters to make sure you are working only with the data you want. If you write you own data, just remember that <code>list.files()</code> to find all your “measured-events.csv” might also return data you went back and excluded. Tip: first read in “options.csv”, apply filters, and then read in the file paths that meet the criteria. Look at source code of <code>rbind_measured_events()</code> to see our strategy.</p>
 </div>
-<div id="launch-the-app" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Launch the App<a href="index.html#launch-the-app" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Once your have successfully installed and built the <code>{lasertrapr}</code> package, you are ready for launch:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(lasertrapr) <span class="co"># load the package and its dependencies</span></span>
-<span id="cb3-2"><a href="index.html#cb3-2" tabindex="-1"></a><span class="fu">run_app</span>() <span class="co"># this will launch the app GUI in your default web browser</span></span></code></pre></div>
-<p>Once the initial setup and installation is complete, the above two lines is the only code that will need to be run each time you want to use the app. You can update to the current developers version anytime by re-running <code>install.packages("lasertrapr")</code> or <code>devtools::install_gitub("brentscott93/lasertrapr")</code>.</p>
+<div id="summarize-export" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Summarize “export”<a href="tips-troubleshooting.html#summarize-export" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You do not need to hit export to save the summarized data. When hitting “summarize” the app automatically saves the result of <code>rbind_measured_events</code> in your summary folder within the app, including the file you will want most: “*_all-measured-events.csv*“. The”export” function is experimental and lower priority as we assess its usefullness.</p>
 
 </div>
 </div>
@@ -329,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="upload.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="simulator.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

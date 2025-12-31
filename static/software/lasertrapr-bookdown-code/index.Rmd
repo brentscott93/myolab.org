@@ -26,19 +26,21 @@ Additionally, you will need to install the [R build toolchain](https://r-pkgs.or
 
 ## Download **{lasertrapr}**
 
-Open R/RStudio on your computer. You can download the latest stable version of the app from my *drat* repository on Github with the following code. Copy/paste the following into the R-Console or into an R-Script to run:  
+Open R/RStudio on your computer. 
 
-
-```{r eval=FALSE}
-install.packages("drat") # installs drat package
-drat::addRepo("brentscott93") # adds my drat repo
-install.packages("lasertrapr") # installs the lasertrapr package
-```
-For users that want the latest developmental version to fork and contribute you can install from GitHub with: 
+For users that want the latest developmental version, users who are reviewing, or users who want to contribute you can install the latest from GitHub with: 
 ```{r eval=FALSE}
 install.packages("devtools") # i.e. "developer tools"
 library(devtools) # loads the package
 install_github("brentscott93/lasertrapr") # downloads lasertraor from github
+```
+
+
+You can download and older "stable" version from 2022 from my *drat* repository on Github with the following code. Copy/paste the following into the R-Console or into an R-Script to run:  
+```{r eval=FALSE}
+install.packages("drat") # installs drat package
+drat::addRepo("brentscott93") # adds my drat repo
+install.packages("lasertrapr") # installs the lasertrapr package
 ```
 
 Both {devtools} and {lasertrapr} will need to install dependencies. Update and install all the packages that they want when prompted. Alternatively you can install {devtools} from within the RStudio IDE by navigating to the "Packages" tab in the lower right box and clicking "Install".

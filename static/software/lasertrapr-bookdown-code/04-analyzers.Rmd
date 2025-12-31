@@ -10,12 +10,6 @@ Currently, there are several analyzers available within the app:
 
 These analyzers have a similar UI with the ability to impose user control over some of the analysis parameters. 
 
-The covariance analyzer is for single molecule experiments collected on systems with 2 QPDs.
-
-The Force Balance requires a "preferred channel" to be selected in clean and process.
-
-There is also an analyzer for the isometric force clamp, a feedback experiment, requires 2 bead signals and a "Feedback motor bead" designated when uploading data.
-
 For all analyzers, you have the option to run the analyzer through all of the observations in a given date folder, or you can select just a single observation. If you select to analyze a single observation you must also select the observation you want to analyze in the Folder Navigator (top right button). 
 
 ## HM-Model/Changepoint (1 QPD)
@@ -36,7 +30,7 @@ The "Channels" options lets you choose if you want the Hidden Markov Model to us
 
 ### Options: Changepoint
 
-There are two sections the changepoint options. Since changepoint analysis is applied separately to the beginning and ends of the events so you can control the behavior of both. The default is to use the changepoint method "Mean/Var" which has the changepoint alogorithm use the mean and variance position to identify the most probable change. Whereas if "Variance" is selected a slider will appear allowing the user to select a window width for the running variance transformation. The changepoint will then look for a change in the mean signal position of the variance transformation to identify the most probable change. 
+There are two sections the changepoint options. Since changepoint analysis is applied separately to the beginning and ends of the events so you can control the behavior of both. The default is to use the changepoint method "Mean/Var" which has the changepoint algorithm use the mean and variance position to identify the most probable change. Whereas if "Variance" is selected a slider will appear allowing the user to select a window width for the running variance transformation. The changepoint will then look for a change in the mean signal position of the variance transformation to identify the most probable change. 
 
 ### Options: Displacements
 
@@ -44,6 +38,8 @@ Users can select one of two methods for peak displacements to be calculated. The
 
 
 ## Covariance (2 QPD)
+
+The covariance analyzer is for single molecule experiments collected on systems with 2 QPDs.
 
 Very similar to the HM-Model/Changepoint (1 QPD) except replaces the variance dimension with covariance between the beads position. This provides event displacement, force, and time on calculations for every event in both data traces (bead 1 and bead 2). You can take the average of both signal's values or select one or the other to report. Just make sure to properly deal with this in your summary calculations.
 
@@ -54,18 +50,37 @@ This is the exact analyzer as the HM-Model/Changepoint (1 QPD) analysis without 
 
 The "other" force/displacement is calculated over a 5 ms datapoint window surrounding the "peak-nm-index" metric determined from the preferred bead.
 
+The Force Balance requires a "preferred channel" to be selected in clean and process.
+
 ### Options: Force Balance
 
-Same as HM-Model/Changepoint (1 QPD)
+
+Same as HM-Model/Changepoint (1 QPD).
 
 ## Mini-Ensemble
 
 This mini-ensemble analyzer uses a simple thresholding method to ID events. Users can control the threshold parameters for the displacement and minimum time on as well as the running window width. 
 
+### Options: Mini-ensemble
+
+Click on the "Advanced" toggle switch to display a few parameters that you can change for the mini-ensemble analysis.
+
+**Running Mean Window Width**: the number of milliseconds to use for the running mean window. Note, this running mean window will be calculated and advance one datapoint at a time.
+**Set Displacement Threshold**: the number of nanometers to apply the threshold at. Anytime the running mean goes above this threshold, it is scored as an event.
+**Set Minimum Time Threshold**: the minimum number of milliseconds needed for the event to considered an "event". Once the running mean goes over the displacement threshold it is counted as an event. After all these events are counted, they are then filtered so that only events that are greater in time duration than this minimum time duration as retained as events. 
+
+### Notes about mini analyzer
+
+The Mini-ensemble analyzer actually analyzes every trace twice. The first time to ID events as-is in the Clean & Processed Data. Then, it performs a baseline correction where the average baseline position before every event is calculated and subtracted from the baseline+the following event. The rationale for this was to account for small position drift over time. Even though the signal is baseline corrected in Clean & Process, sometimes baseline does not go back to 0. It might be +0.5 nm or -0.25 nm etc. So, this is an additional small adjustment to make sure peak displacement are not over or underestimated by starting from a non-zero value. 
+
+Example, let's say a 30 nm peak displacement is measured, but the baseline started at +2nm. So first, this event is identified by the first analysis, then baseline corrected so the baseline and event are subtracted by -2 nm, which shifts the baseline back to 0nm and the peak down to 28nm. After this is performed throughout the whole trace, the events are re-identified and analyzed again to extract this new information which results in an event peak displacement of 28 nm. This does not occur in the single molecule analyzers because those use relative displacement changes, whereas the mini ensemble is an absolute displacement measurement.
+
 
 ## Isometric Force Clamp
 
 The Isometric Force Clamp analyzer only works with 2-channel datasets. It works by applying a 2-state hidden markov model to the motor bead position to identify the binding events. The average force of the event and the corresponding lifetime are saved in the output files. After analyzing all your data, you can use the "Summarize" tab to fit the Bell-bond equation to this resulting data. 
+
+There is also an analyzer for the isometric force clamp, a feedback experiment, requires 2 bead signals and a "Feedback motor bead" designated when uploading data.
 
 ### Options: HM-Model
 
