@@ -131,11 +131,46 @@ Results of the event frequency analysis.
 
 ### ensemble-data.csv
 
-Results of the "Prep Ensemble" button. For internal use by the app.
+Results of the "Prep Ensemble" button. For internal use by the app. The data is the **SUM** of all displacement/position data for each event within an observation. This data is then read by `avg_ensembles()`, summed with all the other files and then divided by the number of events by reading in `options-prep-ensemble.csv`, which has an "event" count column for each obs folder.
+
+**direction**: values are "forward" or "backwards" to designate whether the data is attributed to the forwards or backwards ensemble average.
+
+**forward_backward_index**: a continuous time in datapoints used to plot the forwards/backwards ensembles on the same x-axis.
+
+**ensemble_index**: relative time index for forwards and backwards ensembles respectively.
+
+**data**: the **SUM** of all the respective relative datapoints for each event in the data trace within the observation folder. This data will be **SUMMED** with all the other `data` columns from other observations and then divided by the total number of events for the average.
+
+### options-prep-ensemble.csv
+
+The user selected options from "Prep Ensembles" are saved here along with the total number of "events" in the `event` column. The `avg_ensemble()` function reads this file sums all the events and sums all the `data` columns from the `ensemble-data.csv` files to make the final average.
+
 
 ### substeps.csv
 
 Analysis of the substeps that occurs during the ensemble averaging procedure.
+
+**bead**: the "bead" or channel the measurements were made on. You can average values between the beads. Value of 1 or 2.
+
+**event_id**: the event number the data was measured on within the trace.
+
+**prior_unbound_position_nm**: this is the absolute position in nm of the baseline a few milliseconds before the start of the events.
+
+**bead_position_substep_1_nm**: the is the absolute average position of the bead for a few milliseconds after the changepoint identified start of the event.
+
+**substep_1_nm**: the relative displacement between `prior_unbound_position_nm` and `bead_position_substep_1_nm`
+
+**bead_position_substep_2_nm**: the is the absolute average position of the bead for a few milliseconds before the changepoint identified stop of the event.
+
+**substep_2_nm**: the difference between `bead_position_substep_2_nm` and `bead_position_substep_1_nm`
+
+**total_step_nm**: the sum of `substep_1_nm` and `substep_2_nm`.
+
+**after_unbound_position_nm**: the absolute position average of the baseline over a few milliseconds after the changepoint identified stop of the event.
+
+**substep_2_nm_alt**: alternative substep 2 calculation. Calculated as (`bead_position_substep_2_nm` minus  `after_unbound_position_nm`) MINUS (`bead_position_substep_1_nm` minus `prior_unbound_position_nm`).
+
+**total_step_nm_alt**: alternative total step calculation. Calculated as `bead_position_substep_2` minus `after_unbound_position_nm`
 
 
 ### options.csv
