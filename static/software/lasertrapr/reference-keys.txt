@@ -65,9 +65,13 @@ notes
 tldr-5
 tips-troubleshooting
 folder-manager-window
+clean-process-plot-empty-after-cleanmove
 simulator-slider-ranges
 measured-events.csv
 summarize-export
+ensemble-average-tab-stuck-at-data-not-analyzed
+overwriting-files
+figures-tab
 data-files
 observation-folder-files
 trap-data.csv
@@ -75,6 +79,7 @@ measured-events.csv-1
 hm-model-data.csv
 event-frequency.csv
 ensemble-data.csv
+options-prep-ensemble.csv
 substeps.csv
 options.csv
 header.csv

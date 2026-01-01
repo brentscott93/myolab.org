@@ -1,12 +1,16 @@
 # Tips & Troubleshooting
 
-Below are some quirks with the program mixed with tips about things to note or be careful of when using the app or data generated from it.
+Below are a mix of tips and tricks along with some quirks about the program to help troubleshoot. Additionally, there are some things to aware about how the app works so you can be careful/cautious when using the app or data generated from it.
 
 Please feel free to add known problems, issues, or workarounds here. You can email me or clone this repo and edit the markdown source at  "https://github.com/brentscott93/myolab.org/blob/master/static/software/lasertrapr-bookdown-code/10-issues.Rmd" and open a pull-request so that I can merge and rebuild. 
 
 ## Folder manager window 
 
 The folder manager opens up off the partially off the screen after restart. Just close and re-open and it is fixed. Does not effect performance. Low priority. 
+
+## Clean & Process plot empty after clean/move?
+
+Sometimes if you delete or move data from clean and process the plot automatically refreshes but does not display anything. Hit the "graph" button again to manually refresh and it will show the updated graph. Does not effect performance. Low priority.
 
 ## Simulator slider ranges
 
@@ -16,12 +20,25 @@ After changing the rates of an exponential the range sliders do not update to th
 
 Be careful when manually working with your "measured-events.csv" files. The app never deletes data but uses different filtering strategies in combination of options.csv to select the data you mark as useable throughout interacting with the app. Clean & Process, include == TRUE. Analysis tab, review == TRUE. Excluding events, user_event_excluded == FALSE. 
 
-The lasertrapr R package provided a function `rbind_measured_function()` that will read-in all data and apply the correct filters to make sure you are working only with the data you want. If you write you own data, just remember that `list.files()` to find all your "measured-events.csv" might also return data you went back and excluded. Tip: first read in "options.csv", apply filters, and then read in the file paths that meet the criteria. Look at source code of `rbind_measured_events()` to see our strategy.
+The {lasertrapr} R package provides a function `rbind_measured_function()` that will read-in all data and apply the correct filters to make sure you are working only with the data you want. If you want to write your own code and manually read in all your data, just remember that if you `list.files()` to find all your "measured-events.csv" it will also return data "obs" you might have went back and excluded, which does not delete the "measured-events.csv" files but adds review=FALSE to "options.csv". Tip: first read in "options.csv", apply filters, and then read in the file paths that meet the criteria. Look at source code of `rbind_measured_events()` to see our strategy.
 
 ## Summarize "export"
 
-You do not need to hit export to save the summarized data. When hitting "summarize" the app automatically saves the result of `rbind_measured_events` in your summary folder within the app, including the file you will want most: "*_all-measured-events.csv*". The "export" function is experimental and lower priority as we assess its usefullness.
+You do not need to hit export to save the summarized data. When hitting "summarize" the app automatically saves the result of `rbind_measured_events` in your summary folder within the app, which includes the file you will want most: "*_all-measured-events.csv*". This is saved in lasertrapr -> project -> summary folder. The "export" function is experimental and lower priority as we assess its usefulness.
 
+## Ensemble average tab stuck at "Data not analyzed"
+
+The ensemble average tab will not show buttons unless it detects there are analyzed traces in the project folder. Sometimes, the app gets "stuck" and even if the project has analyzed traces it sometimes says "Data not analyzed". If this is the case, once in the "Ensemble Average tab", select a different project in the folder manager and then switch back to the project you are wanting to ensemble average to refresh it. There is some internal reactivity that needs to be worked out in the UI logic, whereas the ensemble average interface is only registering project folder changes when a user is in that tab but should also update when it is first navigated to.
+
+The UI works as expected if you first start the app, navigate to ensemble average tab, and then select project. However, if you first start the app, select a project, and then go to ensemble average you are met with this "Data not analyzed" problem.
+
+## Overwriting files
+
+The app automatically names and saves files. In most cases, the filenames include data and/or time stamps. So, data files generated on different days have different dates and are both saved. However, if you have a summary file like *all-measured-events.csv* you make on a day and then want to finangle a few setting and re-generate *all-measured-events.csv* file on the same day, the previous one will be overwritten. To avoid this, either copy/paste the file elsewhere or rename the *all-measured-events.csv* file to something else and then finangle and re-summarize which will allow you to compare both outputs.
+
+## Figures tab?
+
+The figures tab remains in the app as a legacy feature and only works with 1-channel data. Most likely this feature will be removed in a future version all together. At one time, having a point and click figure generator with minimal options seemed like a convenient idea to make a few clicks to generate plots for papers/presentations; however, as we started more projects and publishing, we realized that as scientists, we are very particular about the aesthetics of plots and graphics, and that there were always small tweaks we were wanting to make which would require a very capable and robust figure generator. Programming this would require an extraordinary effort to program into the app, and considering there already exists excellent plotting programs including the {ggplot2} R package, it does not seem like a worthwhile endeavor. Since *lasertrapr* generates ggplot2 friendly datasets, it is already relatively quick and easy to read the data into R and ggplot your data which gives tremendous plotting capabilities, or simply upload the data into your other favorite plotting program.
   
   
 
