@@ -71,7 +71,7 @@ Your browser does not support the video tag.
 Stage drift can occur in longer records, or put another way the displacement on the y-axis will start to trend with time on the x-axis. There should be no relationship between time and displacement (slope should be 0). If this occurs the data record will look like it is tilted diagonally. This can be compensated by *de*-trending the data. A piecewise linear regression is fit to every 5 seconds of data and the resulting slope is removed from the data. Select **Detrend** in **Graph Options** and click **Graph** to preview the results. This also centers the baseline around 0. *NOTE: this will not be saved until you explicitly hit save.*
 
 <video width="800" height="400" controls>
-  <source src="images/remove-mv.mp4" type="video/mp4">
+  <source src="images/detrend.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 

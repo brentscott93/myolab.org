@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Simulator | Documentation for {lasertrapr}</title>
+  <title>Chapter 6 Ensemble Average | Documentation for {lasertrapr}</title>
   <meta name="description" content="Documentation for using the lasertrapr app" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Simulator | Documentation for {lasertrapr}" />
+  <meta property="og:title" content="Chapter 6 Ensemble Average | Documentation for {lasertrapr}" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Documentation for using the lasertrapr app" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Simulator | Documentation for {lasertrapr}" />
+  <meta name="twitter:title" content="Chapter 6 Ensemble Average | Documentation for {lasertrapr}" />
   
   <meta name="twitter:description" content="Documentation for using the lasertrapr app" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="calibrations.html"/>
-<link rel="next" href="tips-troubleshooting.html"/>
+<link rel="prev" href="summarize-1.html"/>
+<link rel="next" href="figures.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -301,49 +301,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="simulator" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Simulator<a href="simulator.html#simulator" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><em>lasertrapr</em> has a built-in data simulator that will write <em>lasertrapr</em> friendly data sets into your <em>lasertrapr</em> data folder. First create a new project, conditions, and date folders. For the “project” and “conditions” folders, they must have “simulation” somewhere in the project name and condition name or else the application will not save data into those folders.</p>
-<p>This is taken as a precaution. The app is preventing you from doing something you should not do. DO NOT SIMULATE DATA INTO A REAL PROJECT OR CONDITION FOLDER. It also prevents accidents from occurring (forgetting to switch projects/conditions before simulating).</p>
-<div id="monte-carlo-myosin-simulations" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Monte carlo “myosin” simulations<a href="simulator.html#monte-carlo-myosin-simulations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The simulator generates “raw” optical trapping datasets that qualitatively look like the traces you would get from a single molecule optical trapping experiments with a 1 QPD setup. The simulator uses a monte carlo style simulation to quantitatively reflect the underlying model, which is based on the mechanochemical scheme of myosin interacting with actin:</p>
-<ul>
-<li>M.ATP/M.ADP.Pi (one detached state)</li>
-<li>Attachment into AM.ADP.Pi or AM.ADP (decrease in variance)</li>
-<li>Mechanical displacement (SUBSTEP 1)</li>
-<li>ADP release</li>
-<li>Mechanical displacement (SUBSTEP 2)</li>
-<li>AM (rigor)</li>
-<li>Detach/Restart, that is one “event”</li>
-</ul>
-<p>The simulator only progresses forward through the cycle (there are no possibility’s of reversals) and the simulation has no load dependent processes. The rates of the biochemical steps are set by the user and sampled by the simulator from exponential distributions that you can truncate to avoid extremely slow or fast reaction times. Users can set characteristics of the baseline noise and event population signal-to-noise ratio and magnitude of the displacement distribution. Optionally, users can enter a second substep that represents “the hitch” that most myosins have been shown to have in single molecule optical trapping experiments.</p>
+<div id="ensemble-average-1" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Ensemble Average<a href="ensemble-average-1.html#ensemble-average-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Ensemble averaging in <strong>{lasertrapr}</strong> is divided into three distinct steps 1) preparing the ensembles, 2) averaging and fitting the ensembles, and 3) plotting. Separating these distinct tasks provides the user with more control over the prococess without having to re-run computationally long tasks repeatedly.</p>
+<div id="prep-ensembles" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Prep Ensembles<a href="ensemble-average-1.html#prep-ensembles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>An individual single molecule (myosin) event should be composed of two substeps (d1 &amp; d2). Events can be aligned at the changepoint identified start or end of the events, temporally synchronized to the same duration, and then averaged together to create one “average” event. The user can control how the event synchronization occurs.</p>
+<p>All the original trapping data traces are saved in the “trap-data.csv” files and their ID’d events are saved in “measured-events.csv”. The “measured-events.csv” file not only includes displacements, event durations, etc., but also the changepoint ID’d datapoint for the start and end of each event. This information can be used for the ensemble averaging.</p>
+<p>Ultimately, the “Prep Ensembles” button will create an “ensemble-data.csv” file in each <strong>obs-##</strong> folder that will have all of the individual forwards and backwards extended events that was constructed with the selected parameters described below in one file in long format.</p>
+<p>This step usaully takes the most time computationally as it involved reading in every single “trap-data.csv” file, extracting the events, and writing the synchronized events back to the folder.</p>
+<p><strong>NOTE:</strong> Only observations that were <strong>included</strong>, analyzed as <strong>success</strong>, and whose <strong>review</strong> marked as TRUE will be included in the ensemble averages. Additionally, if the observation passes that first check then any events that were user excluded will be filtered out. Each time you re-prep your ensembles, all existing “ensemble-data.csv” files are <strong>ERASED</strong> and the data is re-read and prepped again. This allows the user to go back and exclude a trace or event from analysis and re-prep without leaving old straggling files behind.</p>
+<div id="extending-forward" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Extending Forward<a href="ensemble-average-1.html#extending-forward" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The goal with the forward ensemble average is to align the beginning of the events and “stretch” the ends of the short events to be equal to the longest event in time. The app lets the user choose how much (or little) time to use to extend the event. A 3ms “Avg of ms to extend forward” (I should probably come up with better names for these parameters) value means the position of the last 3ms of an events will be averaged and that resulting average value will be used (repeated) to extend the event out. The window size you select would probably be dependent on [ATP]. The higher the [ATP] the lower the window should be to decrease the likelihood of averaging pre-hitch (d1) displacement position. Whereas, at high [ATP] myosin will spend a longer time in a post-hitch (d2) final displacement position waiting for ATP to induce dissociation so you can be less aggressive in the size of the window in attempts to truly capture the average of that final d2 displacement.</p>
 </div>
-<div id="simulate-data" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Simulate Data<a href="simulator.html#simulate-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To simulate data, create a new project folder with “simulation” in the name. Create a new condition folder with “simulation” in the name. Make a date folder. The app will create the observation folders for you.</p>
-<p>Expand the “Simulate Data” box within the “Upload Data” tab. The grey box on the left lists all the parameters that the user can change about the simulation. Click on options to pop open a dialogue box that will allow you to change these parameters.</p>
-<p>First, hit the simulate button to generate a single simulated data trace. You can then save it by clicking “Save”. The app will create a new “obs-##” folder everytime you hit save. You can hit “simulate” again to do another simulation, and then save again to continue saving traces.</p>
-<p>If you want to simulate 1000 events, I would recommend 10x100 events or similar to avoid extremely large files which can be slow for the app to visualize and interact with.</p>
+<div id="extending-backwards" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Extending Backwards<a href="ensemble-average-1.html#extending-backwards" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Similar idea of the forwards, but for the backward ensemble average the goal is to capture the average position signal of the d1 pre-hitch position signal to extend the events. However, this is a little tricky. The changepoint algorithm used identifies the transition period going from un-bound to bound as a part of the event. This is the very brief period in time where the bead is moving through solution as it is displaced from the center of the trap. As a result, even though these datapoint are considered part of the event, they are not a true representation of the post-powerstroke/pre-hitch d1 position. The app gives the option to “skip” into the event before performing an average in effort to try to avoid averaging in these transition points. The “Number of ms to skip before s1 avg” (again not a catchy name…) lets the user decide how many ms to skip into each event before averaging. Similarly, the “Avg of ms to extend s1 backwards” allows the user to select how many ms to include in the average after skipping ahead.</p>
 </div>
-<div id="options" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Options<a href="simulator.html#options" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Baseline</strong>: Modeled as a normal distribution. Characterizes the mean position and sd/variance of the baseline population. Most likely, you will leave this as-is. You can change the SD/variance to simulate a stiffer or looser trap. SD = 8 is qualitatively similar to the experimental data I would record on the UMass trap in Totman B29 when I was a grad student working with a ~0.04 pN/nm trap stiffness. Therefore, that has historically been the default.</p>
-<p><strong>Displacements</strong>: Modeled as a normal distribution. This allows you to select the mean and SD/variance of the baseline population. The mean value will be the size of your initial ‘powerstroke’. Brownian captures will occur in these simulations as the SD is also set to 8, which is the same value as the baseline SD. You should set the displacement SD to be equal to baseline SD for reasons that Justin Molloy details in his 1994 papers. If you do not want to simulate brownian captures and want every displacement to be the same absolute value, set the SD to 0.</p>
-<p><strong>Pi release</strong>: Modeled as a single exponential. You can select whether the displacement occurs before, after, or uncoupled from the Pi release step. If “uncoupled”, the attachment duration is only comprised of ADP release and ATP binding. You can select the rate of the exponential distribution in the user interface if you decide to have this rate. If “Before”, the simulation will progress as: pi release, displacement, adp release, atp binding. If selected “After”, the simulation will proceed as: displacement, pi release, adp release, atp binding.</p>
-<p><strong>ADP release</strong>: Modeled as a single exponential. Users can select the rate of this exponential distribution and whether or not to include a second displacement that occurs after ADP is released in the simulation. This rate would become the rate of the forward ensemble average.</p>
-<p><strong>ATP binding</strong>: Modeled as a single exponential. While in reality this is a complicated biochemical measurement, for this simulation ATP induced detachment is modeled as a single exponential parameter to describe the usual second order rate of ATP induced dissociation. This is modeled a single exponential function since when trapping at low ATP this becomes a pseudo-first order rate where you can fit the backwards ensemble averages with a single exponential to estimate the second order rate of ATP induced detachment. So, for using the simulator for application validation, modeling this as a single exponential allows us to observe the ability to extract a single exponential rate from the simulation. Perhaps then this is better to think of this parameter as the rate of the backwards ensemble.</p>
-<p><strong>Time off</strong>: Modeled as a single exponential. This is the time between events, or attachment rate, modeled as a single exponential. You can pick the rate. Usually 1 per second in the trap. Recommended to limit the maximum time to avoid very long off times in simulations to keep files sizes shorter. Also, recommended to truncate so you don’t get very short off times.</p>
 </div>
-<div id="notes" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Notes<a href="simulator.html#notes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Please note, some of the sliders that allow to truncate the distributions update reactively depending on the rate supplied. Sometimes after you change the rate, you need to close the options window and re-open it to have the app refresh the slider ranges.</p>
+<div id="average-fit-ensembles" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Average &amp; Fit Ensembles<a href="ensemble-average-1.html#average-fit-ensembles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Once the ensembled are prepped they can then be averaged and optionally fit with an exponential curve. The options allow the user to select the maximum amount of data to plot and whether to fit a single, double, or no exponential to the data. This part is relateively strighforward, just click “Avg Ensembles”. Averaging the ensmbles will automatically save the fit parameters under “lasertrapr/project/summary”.</p>
 </div>
-<div id="tldr-5" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> tl;dr<a href="simulator.html#tldr-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="plot-ensembles" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Plot Ensembles<a href="ensemble-average-1.html#plot-ensembles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>After the ensembles are averaged and optionally fit, you can navigate to the “Plot Options” tab to activate the graph. Prior to activating this tab only the Forward/Backwards Fit Parameter tables will be view-able.</p>
+<p>Within the app, there is a limited selection of plot customizations that allow the user to tweak the appearance of the plot. You can provide custom labels to the facets, change facetting directions, shift the backwards ensembls undernearth the forwards to save on space, change theme size, along with some other minor features. Plots can be saved with “Save Plot” and figures are saved under the selected project folder inside “lasertrapr/project/summary/figures”.</p>
+<p><strong>NOTE:</strong> In order to get the custom labels to work you must select a factor order.</p>
+</div>
+<div id="tldr-3" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> tl;dr<a href="ensemble-average-1.html#tldr-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Just show me a video…</p>
 <video width="800" height="400" controls>
-<source src="images/simulate.mp4" type="video/mp4">
+<source src="images/ensemble-average.mp4" type="video/mp4">
 <p>Your browser does not support the video tag.
 </video></p>
 
@@ -354,8 +345,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="calibrations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tips-troubleshooting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="summarize-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="figures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
