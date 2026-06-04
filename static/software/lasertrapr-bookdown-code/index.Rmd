@@ -43,7 +43,7 @@ drat::addRepo("brentscott93") # adds my drat repo
 install.packages("lasertrapr") # installs the lasertrapr package
 ```
 
-Both {pak} and {lasertrapr} will need to install dependencies. Update and install all the packages that they want when prompted. Alternatively you can install {devtools} from within the RStudio IDE by navigating to the "Packages" tab in the lower right box and clicking "Install".
+Both {pak} and {lasertrapr} will need to install dependencies. Update and install all the packages that they want when prompted. Alternatively, you can install {pak} from within the RStudio IDE by navigating to the "Packages" tab in the lower right box and clicking "Install".
 
 ## Launch the App
 
@@ -54,7 +54,7 @@ library(lasertrapr) # load the package and its dependencies
 run_app() # this will launch the app GUI in your default web browser
 ```
 
-Once the initial setup and installation is complete, the above two lines is the only code that will need to be run each time you want to use the app. You can update to the current developers version anytime by re-running `install.packages("lasertrapr")` or `devtools::install_gitub("brentscott93/lasertrapr")`. 
+Once the initial setup and installation is complete, the above two lines is the only code that will need to be run each time you want to use the app. You can update to the current developers version anytime by re-running `install.packages("lasertrapr")` or `pak::pkg_install("brentscott93/lasertrapr")`. 
 
 ## Get tutorial data
 
@@ -78,13 +78,13 @@ This trace was generated so it looks like an actin filament "snapping". You cann
 
 Highlight the end where the "filament snaps", the portions of the signal where there is an extremely large displacement in the baseline signal and no "binding events" occur after. About 304.8 seconds until the end. Click "Cut". It will ask if you really want to do this. Click "Yes, Cut". The graph will auto-refresh. Sometimes it does not show the updated graph after auto-update. Just manually click "Graph" again and it will display properly. 
 
- This trace is already to go because it is already in nm and centered around 0 nm. Save the data trace using the "Save Processed Data". Select "None", "Yes", and "0.04" pN/nm. Click save.
+This trace is already to go because it is already in nm and centered around 0 nm. Save the data trace using the "Save Processed Data". Select "None", "Yes", and "0.04" pN/nm. Click save.
 
 Use the folder manager to select "obs-02".
 
-Now, zoom into the data trace between 83 and 90 seconds. There looks like 5 events here. Select time 85.5 seconds through 87.5 seconds, which is only baseline noise. In the box below called "Remove Baseline", click the button that says "Baseline Range". A new plot will appear showing the same baseline portion with a horizontal plot through it with the average position, ~10nm. Now go back to the interactive graph and toggle to "Remove base". Hit "Graph". The average baseline position has now been subtracted and the trace is centered around 0 nm. Note, you need to convert to nm before calculating the "baseline" for removal. 
+Now, zoom into the data trace between 83 and 90 seconds. There looks like 5 events here. Select time 85.5 seconds through 87.5 seconds, which is only baseline noise. In the box below called "Remove Baseline", click the button that says "Baseline Range" and click "Graph". A new plot will appear showing the same baseline portion with a horizontal plot through it with the average position, ~10nm. Now go back to the interactive graph and toggle to "Remove base". Hit "Graph". The average baseline position has now been subtracted and the trace is centered around 0 nm. Note, you need to convert to nm before calculating the "baseline" for removal. 
 
-Now toggle back from "Remove base" to "Nanometers". Go back to the "Remove Baseline" box and switch tabs to "MV". Click the "Baseline MV" button. You will be shown a heatmap of a Mean-variance transformation of the dataset. Draw a box around the dense red portion where most of the baseline data populates:
+Now toggle back from "Remove base" to "Nanometers" and hit graph to reset. Go back to the "Remove Baseline" box and switch tabs to "MV". Click the "Baseline MV" button. You will be shown a heatmap of a Mean-variance transformation of the dataset. Draw a box around the dense red portion where most of the baseline data populates:
 
 ![](images/removing-mv.png)
 
@@ -92,7 +92,7 @@ The app will calculate the average of that red baseline area in the mean dimensi
 
 After, go back to the interactive graph and a new toggle has appeared - "Remove MV". Select it and then hit "graph". The trace is now centered around zero. "Remove MV" and "Remove base" are two methods to achieve similar results. Alternatively, "detrend" can be used to remove linear trends in the data, like stage drift, that also re-centers data around 0 nm.
 
-But - wait! We cannot save this trace because it units are not in nanometers! This is a voltage signal, look at the signal range of -1 to 1 Volts. Enter 30 in the "Step Cal" Box. and hit "Graph". OK, we are in nm now, but we are not centered around 0 nm baseline. So, the order matters. We must first convert to nanometers before removing baseline. 
+But - wait! We cannot save this trace because the units are not in nanometers! This is a voltage signal, look at the signal range of -1 to 1 Volts. Enter 30 in the "Step Cal" Box. and hit "Graph". OK, we are in nm now, but we are not centered around 0 nm baseline. So, the order matters. We must first convert to nanometers before removing baseline. 
  
 Toggle back to "Nanometers" on the "View Mode". Hit "Graph". Then "Baseline MV" in the box below. Draw a box around the red cluster. Note the mean is ~300 nm, instead of 10 volts. Toggle back to "Remove mv" and hit "graph". 
 
@@ -161,7 +161,7 @@ The "Substeps" is an additional analysis of the displacements and substeps for e
 
 ![](images/ea-substeps.png)
 
-The total step is a similar measurement to what is reported in the summarize tab, but slightly different. The "displacement_nm" reported in "all-measured-events.csv" which is shown in "Summarize" tab is the average position across the displacements. The total step value reported in "substeps" of ensemble average is the displacement calculated over the last few milliseconds before detachment. Substep 1 is the average position over the first few milliseconds after attachment. Substeps 2 is then the difference. Please see "Data" chapter for exact columns, names, and formulas for how these values are calculated and the alternative methods returned as well.
+The total step is not the same measurement to what is reported in the summarize tab. The "displacement_nm" reported in "all-measured-events.csv" which is shown in "Summarize" tab is the average position across the displacements. The total step value reported in "substeps" of ensemble average is the final displacement position calculated over the last few milliseconds before detachment. Substep 1 is the average position over the first few milliseconds after attachment. Substeps 2 is then the difference. Please see "Data" chapter for exact columns, names, and formulas for how these values are calculated and the alternative methods returned as well.
 
 Switch to the "Plot" to show the ensemble averages. It will tell you to also switch to "Plot Options" on the left side box. And then you will see the plots:
 
@@ -172,7 +172,7 @@ Select factor order "4plus2" and then "6plus3". You can select different colors 
 ![](images/demo-ea.png)
 
 
-You can find the parameters of the associated forwards and backwards exponential fitting under "Fits - Forward Pars" and "Fits - Backwards Pars". **d1** and **d2** are parameter estimations of substep 1 and substep. They are approximately 4.1 and 2.1, and 6.0 and 3.5 for the respective conditions. This is why the simulations have conditions named this way. "4plus2" and "6plus3" represent the underlying substeps the data was simulated with. The fits also return a fitted rate of the exponential, **k1**, which reflects the simulated ADP release rate. "4plus2" was set at 20/s and "6plus3" at 60/s. The fits return 20/s and 56/s.
+You can find the parameters of the associated forwards and backwards exponential fitting under "Fits - Forward Pars" and "Fits - Backwards Pars". **d1** and **d2** are parameter estimations of substep 1 and substep. They are approximately 4.1 and 2.1, and 6.0 and 3.5 for the respective conditions. This is why the simulations have conditions named this way. "4plus2" and "6plus3" represent the underlying substeps the data was simulated with. Note, these simulations do not have very many events and the analysis still returns relatively accurate measurements of the underlying mechanics and kinetics. The fits also return a fitted rate of the exponential, **k1**, which reflects the simulated ADP release rate. "4plus2" was set at 20/s and "6plus3" at 60/s. The fits return 20/s and 56/s.
 
 The backwards ensembles also provide an estimate of **d1** and **d2**, the underlying substeps, but their associated rate, **k2**, reflect the rate of ATP induced dissociation under the solution conditions of the experiments. In the simulations they were set at 2/s and 6/s and the fitted parameters are 1.8/s and 5.5/s. 
 
