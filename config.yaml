@@ -27,6 +27,9 @@ languages:
         - identifier: join
           name: Join
           url: /join
+        - identifier: techniques
+          name: Techniques
+          url: /techniques
         - identifier: projects
           name: Projects
           url: /projects
@@ -35,7 +38,7 @@ languages:
       logo:
         logoHomeLink: /
         logoText: Myolab
-    subtitle: Molecular Biophysics
+    subtitle: Muscle Physiology & Molecular Biophysics
     title: Myolab
     readOtherPosts: Read other posts
 pagination:
