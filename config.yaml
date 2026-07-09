@@ -30,9 +30,9 @@ languages:
         - identifier: techniques
           name: Techniques
           url: /techniques
-        - identifier: projects
-          name: Projects
-          url: /projects
+        - identifier: papers
+          name: Papers
+          url: /papers
     menuMore: Show more
     params:
       logo:
