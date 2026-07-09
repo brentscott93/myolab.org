@@ -12,12 +12,12 @@ We use single-molecule optical trapping with the "3-bead" geometry to measure th
 
 Below is a cartoon representation of the optical trapping experiment which is performed on a customized Nikon TiU inverted microscope. A 1064 nm laser is directed through an optical path and into the microscope. The microscope's objective focuses the laser light near the focal plane creating an "optical trap" which allows us to grab and manipulate small particles (similar to a tractor beam in SCI-FI movies). We trap 1 micron microspheres which we make "sticky" to actin via a streptavidin-biotin linkage. We adhere an actin filament to the the two trapped microspheres and pull it taught by steering the laser beams. We can then lower the actin filament towrads the surface of the microscope slide surface to interact with a single molecule (myosin is depicted here). We have a special dectector mounted in the back focal plane of the microscope that records the position of the trapped microspheres. The detector measures both distances and forces with nanometer and piconewton resolution.
 
-![]("img/trap.png")
+![](/img/trap.png)
 
 ### Mutli-molecule optical trapping
 While single molecule experiments provide the fundamental and unitary measurements of single protein interactions, adding additional proteins allows us to begin to recapitulate higher order physiological structures to understand how proteins cooperatively work together to generate force within the muscle. Below is an animation made by the [Muscle Biophysics Lab at the University of Massachusetts Amherst](https://www.umass.edu/musclebiophy/techniques%20-%20laser%20trap.html) to demonstrate a small team of myosin molecules working to displace an actin filaments in the "mini-ensemble" optical trapping experiment.
 
-![]("img/debold-mini-ensemble.gif")
+![](/img/debold-mini-ensemble.gif)
 
 ### In vitro motility
 Also known as a "gliding assay" in other labs, we prefer to call this experiment "muscle contraction in a dish" or "crowd-surfing actin". We stick a bunch of myosin motors to a microscope slide and watch them translocate fluorescently labeled actin filaments over this dense lawn of myosin using epi-fluorescence. This experiment is done a Nikon TiU inverted microscope.
